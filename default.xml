@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote fetch="https://gitee.com/phytium_embedded/" name="gitee"/>
-  <remote fetch="git://github.com/meta-qt5" name="QT5"/>
-  <remote fetch="git://github.com/schnitzeltony" name="QT5EXT"/>
+  <remote fetch="ssh://git@gitee.com:22/phytium_embedded" name="gitee"/>
+  <remote fetch="https://github.com" name="githubs"/>
+  <remote fetch="https://git.openembedded.org" name="oe"/>
   <remote fetch="git://github.com" name="github"/>
-  <remote fetch="git://github.com/openembedded" name="oe"/>
+  <remote fetch="https://github.com/OSSystems" name="OSSystems"/>
+  <remote fetch="https://git.openembedded.org" name="python2"/>
+  <remote fetch="https://git.yoctoproject.org/git" name="yoctos"/>
   <remote fetch="git://git.yoctoproject.org" name="yocto"/>
-  
+  <remote fetch="git://github.com/schnitzeltony" name="office"/>
   <default sync-j="2"/>
   
   <project name="phytium-linux-yocto" path="sources/meta-phytium" remote="gitee" revision="master">
     <copyfile dest="setup-env" src="tools/setup-env"/>
   </project>
-  <project name="poky" path="sources/poky" remote="gitee" revision="424296bf9bb4bae27febf91bce0118df09ce5fa1"/>
-  <project name="meta-virtualization" path="sources/meta-virtualization" remote="gitee" revision="43e774fafe02c166cdf59c8733b0fe820987771e"/>
-  <project name="meta-qt5-extra" path="sources/meta-qt5-extra" remote="gitee" revision="776a2d732ec923317b3ed93ec2a735f809b5ad15"/>
-  <project name="meta-qt5" path="sources/meta-qt5" remote="gitee" revision="43120725aaeedc88eecbc345a1b7e9adfa45e120"/>
-  <project name="meta-openembedded" path="sources/meta-openembedded" remote="gitee" revision="e413c1ef621688e69bb7830bb3151ed23b30b73e"/>
-  <project name="schnitzeltony/meta-mortsgna" path="sources/meta-mortsgna" remote="github" revision="55b9f3daaa39d4c7d93095ab1e7cb13cc53d7df4"/>
-  <project name="meta-rust/meta-rust" path="sources/meta-rust" remote="github" revision="7f235b6f8973cc5269448375f2a8f9867bb2a369"/>
-  <project name="kraj/meta-clang" path="sources/meta-clang" remote="github" revision="76c6751d721a4265e01bb71d8dc4fb46dca6602f"/>
+  <project name="poky" path="sources/poky" remote="gitee" revision="14c5392fded42f17962e1cc07fcc0446881b4fa0"/>
+  <project name="meta-virtualization" path="sources/meta-virtualization" remote="yoctos" revision="3415134f7dae5a691b29dc8b2b5fc571f21b3906"/>
+  <project name="meta-qt5-extra" path="sources/meta-qt5-extra" remote="gitee" revision="6575019b7b6632c38bfda695a27802fc0176087d"/>
+  <project name="meta-qt5" path="sources/meta-qt5" remote="gitee" revision="43f8f539d40070a70fe89136db89bf5bb1dfe7ed"/>
+  <project name="meta-openembedded" path="sources/meta-openembedded" remote="gitee" revision="d378e4293d18e374f5d1494a88bfc3caee4d02df"/>
+  <project name="meta-clang" path="sources/meta-clang" remote="gitee" revision="2207df98559afc19d6a0243027bbac18980fc764"/>
+  <project name="meta-browser" path="sources/meta-browser" remote="gitee" revision="8be1d3a0ba0cf32e61144900597207af5698c10d"/>
+  <project name="meta-office" path="sources/meta-office" remote="gitee" revision="da717fcb76ff323146065f594438ba860babc5bf"/>
+  <project name="meta-arm" path="sources/meta-arm" remote="yocto" revision="fe35ff5ba809bf4826adfe65899a84e9c99494e8"/>
 </manifest>
