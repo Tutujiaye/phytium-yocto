@@ -1,6 +1,6 @@
 require linux-phytium.inc
 inherit kernel siteinfo
-inherit fsl-kernel-localversion
+inherit phy-kernel-localversion
 
 SUMMARY = "Linux Kernel for Phytium platforms"
 SECTION = "kernel"
@@ -27,7 +27,7 @@ ZIMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 SCMVERSION ?= "y"
 LOCALVERSION = ""
 DELTA_KERNEL_DEFCONFIG ?= ""
-DELTA_KERNEL_DEFCONFIG_prepend = "sdk.config"
+DELTA_KERNEL_DEFCONFIG_prepend = "e2000_defconfig"
 
 do_merge_delta_config[dirs] = "${B}"
 

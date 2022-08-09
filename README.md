@@ -29,40 +29,28 @@ https://www.yoctoproject.org/docs/3.3/brief-yoctoprojectqs/brief-yoctoprojectqs.
 
    $: cd <release>
 
-   $: repo init -u https://gitee.com/phytium_embedded/phytium-sdk.git -b master [ -m <release manifest>]
+   $: repo init -u ssh://git@gitee.com:22/phytium_embedded/phytium-linux-yocto.git  -m default.xml
 
    $: repo sync --force-sync
 ```
 
 # Supported boards
 
- ft2002-evm
-
- ft2004-evm
-
- d2000
+ e2000
 
 # Building images
 
- Take ft2004-evm as an example:
+ Take e2000 as an example:
 
- $: . ./setup-env -m ft2004-evm
-
- Note: Please contact phytium sales for linux-phytium kernel source codes
-
- you must add the below env to local.conf
-
- INHERIT += "externalsrc"
-
- EXTERNALSRC_pn-linux-phytium = "path-to-your-source-tree"
-
+ $: . ./setup-env -m e2000
+ 
  $: bitbake core-image-minimal
 
  or:
 
- $: bitbake core-image-sato
+ $: bitbake core-image-xfce
 
- Images will be found under tmp/deploy/images/ft2004-evm/.
+ Images will be found under tmp/deploy/images/e2000/.
 
 
 # Booting the images for supported boards
@@ -70,7 +58,6 @@ https://www.yoctoproject.org/docs/3.3/brief-yoctoprojectqs/brief-yoctoprojectqs.
  Prerequisites:
  1. TFTP server being setup to hold the images.
  2. A serial cable connected from your PC to UART1
- 3. Ethernet connected to the first ethernet port on the board.
 
  Booting with core-image-minimal rootfs:
 
@@ -79,29 +66,16 @@ https://www.yoctoproject.org/docs/3.3/brief-yoctoprojectqs/brief-yoctoprojectqs.
 
   2. Set up the environment in U-Boot:
 
-     => setenv ipaddr \<board_ipaddr\>
+     For e2000:
 
-     => setenv serverip <tftp_serverip>
+     => mw 0x32b30164 0x44; mw 0x32b30168 0x44; mw 0x31a30038 0x3; mw 0x2807e0c0 0x00
 
-     For ft2000:
+     => setenv bootargs console=ttyAMA1,115200  audit=0 earlycon=pl011,0x2800d000 root=/dev/sda2 rw
+     
+     => ext4load scsi 0:2 0x90100000 Image; ext4load scsi 0:2 0x90000000 e2000q-miniITX.dtb
 
-     => setenv bootargs console=ttyAMA1,115200 earlycon=pl011,0x28001000 root=/dev/ram0 rw  ramdisk_size=0x2000000
+     => booti 0x90100000 - 0x90000000
 
-     => tftpboot 0x90100000 ft2004-devboard-d4-dsk.dtb ; tftpboot 0x90200000 Image
-
-     => tftpboot 0x93000000 core-image-minimal-ft2004-evm.ext2.gz.u-boot
-
-     => booti 0x90200000 0x93000000 0x90100000
-
-# Building  Xenomai
-  
-   Set the below env to local.conf
-
-   PREFERRED_PROVIDER_virtual/kernel = "linux-xenomai-phytium"
-
-   $: bitbake core-image-rt
-    
-   For test steps ,see the https://gitee.com/phytium_embedded/FT2004-Xenomai
 
 # Building with Multilib support
 
@@ -127,18 +101,6 @@ https://www.yoctoproject.org/docs/3.3/brief-yoctoprojectqs/brief-yoctoprojectqs.
  1. How do I build linux rt in the Yocto Project?
 
     Set PREFERRED_PROVIDER_virtual/kernel = "linux-phytium-rt" in your local.conf.
-
- 2. How do fix "linux-phytium-4.19-r0 do_preconfigure error" ?
-
-    linux kernel source code must git init
-
-    $ cd  \<linux-kernel-source\>
-
-    $ git init
-
-    $ git add .
-
-    $ git commit -s -m "init"
 
 
 # Contribute

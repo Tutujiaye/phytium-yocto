@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <remote fetch="https://gitee.com/phytium_embedded/" name="gitee"/>
-  <remote fetch="http://gitlab.phytium.com.cn/guochunrong/" name="teamwork"/>
-  <remote fetch="ssh://git@10.10.240.123" name="phytium"/>
   <remote fetch="git://github.com/meta-qt5" name="QT5"/>
   <remote fetch="git://github.com/schnitzeltony" name="QT5EXT"/>
   <remote fetch="git://github.com" name="github"/>
@@ -11,7 +9,7 @@
   
   <default sync-j="2"/>
   
-  <project name="phytium-sdk" path="sources/meta-phytium" remote="teamwork" revision="main">
+  <project name="phytium-linux-yocto" path="sources/meta-phytium" remote="gitee" revision="master">
     <copyfile dest="setup-env" src="tools/setup-env"/>
   </project>
   <project name="poky" path="sources/poky" remote="gitee" revision="424296bf9bb4bae27febf91bce0118df09ce5fa1"/>

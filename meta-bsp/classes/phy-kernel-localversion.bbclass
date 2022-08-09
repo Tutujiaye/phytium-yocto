@@ -1,16 +1,14 @@
-# Freescale Kernel LOCALVERSION extension
+# Kernel LOCALVERSION extension
 #
 # This allow to easy reuse of code between different kernel recipes
 #
 # The following options are supported:
 #
 #  SCMVERSION        Puts the Git hash in kernel local version
-#  LOCALVERSION      Value used in LOCALVERSION (default to '+fslc')
-#
-# Copyright 2014, 2015 (C) O.S. Systems Software LTDA.
+#  LOCALVERSION      Value used in LOCALVERSION
 
 SCMVERSION ??= "y"
-LOCALVERSION ??= "+fslc"
+LOCALVERSION ??= ""
 
 kernel_conf_variable() {
 	CONF_SED_SCRIPT="$CONF_SED_SCRIPT /CONFIG_$1[ =]/d;"

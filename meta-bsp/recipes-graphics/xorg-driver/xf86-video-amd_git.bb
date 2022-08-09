@@ -16,7 +16,7 @@ DEPENDS += "virtual/libx11 drm xorgproto \
 PACKAGECONFIG[udev] = "--enable-udev,--disable-udev,udev"
 PACKAGECONFIG[glamor] = "--enable-glamor,--disable-glamor"
 
-SRC_URI = "git://anongit.freedesktop.org/xorg/driver/xf86-video-amdgpu"
+SRC_URI = "git://anongit.freedesktop.org/git/xorg/driver/xf86-video-amdgpu"
 SRCREV = "0d68a91dce88eeacd15bf1159ddc6200a01b1f2e"
 PV  = "amdgpu-20.0.0"
 PACKAGECONFIG_append  = " udev glamor"

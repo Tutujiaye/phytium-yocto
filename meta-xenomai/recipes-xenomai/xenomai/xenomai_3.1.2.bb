@@ -4,17 +4,17 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://README;md5=d804868a35cdacf02fc7ec9fc0d016a7"
 SECTION = "xenomai"
 HOMEPAGE = "http://www.xenomai.org/"
-PR = "r0"
 
-SRC_URI = "git://source.denx.de/Xenomai/xenomai.git;protocol=https;nobranch=1"
+XENOMAI_SRC = "xenomai-v3.1.2"
+SRC_URI = "https://source.denx.de/Xenomai/xenomai/-/archive/v3.1.2/${XENOMAI_SRC}.tar.bz2"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/xenomai-v${PV}"
 
 inherit autotools pkgconfig
 
 includedir = "/usr/include/xenomai"
 
-SRCREV = "2f808a258b5ed77bc747c616d9a50d77d2231cbf"
+SRC_URI[md5sum] = "3d3583d8fd1fc75e0b0561786d4cebb7"
 
 PACKAGES += "${PN}-demos"
 

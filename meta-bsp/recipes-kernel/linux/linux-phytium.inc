@@ -1,6 +1,4 @@
-KERNEL_BRANCH ?= ""
-#SRC_URI = "git://git@gitee.com:22/phytium_embedded/linux-4.19.git;protocol=ssh;nobranch=1 "
-SRC_URI = "git://git@gitlab.phytium.com.cn:12022/embedded/linux/linux-4.19.git;protocol=ssh;nobranch=1 "
+KERNEL_BRANCH ?= "linux-4.19"
+SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-linux-kernel.git;protocol=ssh;branch=${KERNEL_BRANCH} "
 
-SRC_URI_append_ft2002-evm = " file://patch-ft2000ahk-poweroff.patch"
 SRCREV = "${AUTOREV}"

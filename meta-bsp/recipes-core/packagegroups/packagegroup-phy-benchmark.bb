@@ -15,6 +15,7 @@ RDEPENDS_${PN}-core = "\
     iperf2 \
     lmbench \
     netperf \
+    mtd-utils alsa-utils can-utils  netcat devmem2 evtest libgpiod \
 "
 RDEPENDS_${PN}-extended = " \
     ${PN}-core \

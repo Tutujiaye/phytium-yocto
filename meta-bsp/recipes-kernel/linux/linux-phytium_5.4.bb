@@ -1,5 +1,5 @@
 inherit kernel siteinfo
-inherit fsl-kernel-localversion
+inherit phy-kernel-localversion
 
 SUMMARY = "Linux Kernel for Phytium platforms"
 SECTION = "kernel"

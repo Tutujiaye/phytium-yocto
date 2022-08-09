@@ -84,7 +84,7 @@ usage() {
     echo -e "\n    Supported machines:
     `find ${ROOTDIR}/sources/meta-phytium/meta-bsp/conf/machine \
         -name *.conf 2>/dev/null \
-        |egrep "/(ft|d).*conf$" |sort \
+        |egrep "/(ft|d|e).*conf$" |sort \
         |xargs echo |sed -e 's,[^ ]*/,,g;s,.conf,,g'`
 "
 

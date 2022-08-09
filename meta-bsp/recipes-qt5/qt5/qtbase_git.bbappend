@@ -23,7 +23,9 @@ SRC_URI_append = " ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${GPU_EGLFS}
 # EGLFS = "-eglfs -kms -no-rpath -accessibility -make examples -compile-examples -xcb -xcb-xlib -no-bundled-xcb-xinput"
 # QT_CONFIG_FLAGS = " ${EGLFS}"
 
-PACKAGECONFIG_append = " accessibility examples"
+PACKAGECONFIG_append = " accessibility ${PHY_EXA}"
+
+PHY_EXA = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'examples', '', d)}"
 
 PACKAGECONFIG_GL = "gles2 gbm kms"
 #PACKAGECONFIG_PLATFORM = " eglfs "
@@ -36,7 +38,9 @@ do_install_append () {
     fi
     install -d ${D}${sysconfdir}/profile.d/
     install -m 0755 ${WORKDIR}/qt5-${PHY_BACKEND}.sh ${D}${sysconfdir}/profile.d/qt5.sh
-    chmod +777 -R  ${D}/usr/share/examples
+    if [ "${PHY_EXA}" = "examples" ]; then
+    	chmod +777 -R  ${D}/usr/share/examples
+    fi
 }
 
 FILES_${PN} += "${sysconfdir}/profile.d/qt5.sh"

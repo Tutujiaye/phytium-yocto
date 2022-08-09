@@ -1,13 +1,13 @@
 require linux-phytium.inc
 inherit kernel siteinfo
-inherit fsl-kernel-localversion
+inherit phy-kernel-localversion
 
 SUMMARY = "Linux Kernel for Phytium platforms"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
-SRC_URI += "file://patch-4.19.115-rt50.patch"
+KERNEL_BRANCH = "linux-4.19-rt"
 
 S = "${WORKDIR}/git"
 
@@ -27,9 +27,8 @@ ZIMAGE_BASE_NAME = "zImage-${PKGE}-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 ZIMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 SCMVERSION ?= "y"
-LOCALVERSION = ""
+LOCALVERSION = "-phytium-embeded"
 DELTA_KERNEL_DEFCONFIG ?= ""
-DELTA_KERNEL_DEFCONFIG_prepend = " preempt-rt.config sdk.config"
 
 do_merge_delta_config[dirs] = "${B}"
 

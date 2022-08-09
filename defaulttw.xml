@@ -12,7 +12,7 @@
   <remote fetch="git://github.com/schnitzeltony" name="office"/>
   <default sync-j="2"/>
   
-  <project name="phytium-sdk" path="sources/meta-phytium" remote="teamwork" revision="main">
+  <project name="linux/phytium-linux-yocto" path="sources/meta-phytium" remote="teamwork" revision="master">
     <copyfile dest="setup-env" src="tools/setup-env"/>
   </project>
   <project name="poky" path="sources/poky" remote="teamwork" revision="14c5392fded42f17962e1cc07fcc0446881b4fa0"/>
