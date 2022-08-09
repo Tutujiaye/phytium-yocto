@@ -1,0 +1,38 @@
+From 3a3537458b9cf5f05ce70a48000059348e601aee Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Sat, 29 Jun 2019 12:47:16 +0800
+Subject: [PATCH] text repository setting: do not support local ISO file
+
+OE does not support repository in local ISO file
+(an ISO in HDD), so remove it.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ pyanaconda/ui/tui/spokes/installation_source.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyanaconda/ui/tui/spokes/installation_source.py b/pyanaconda/ui/tui/spokes/installation_source.py
+index be2c29e..193c57b 100644
+--- a/pyanaconda/ui/tui/spokes/installation_source.py
++++ b/pyanaconda/ui/tui/spokes/installation_source.py
+@@ -146,6 +146,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
+                     and (self.data.method.method or self.payload.base_repo))
+ 
+     def refresh(self, args=None):
++        log.info("refresh args %s" % (args))
+         NormalTUISpoke.refresh(self, args)
+ 
+         threadMgr.wait(THREAD_PAYLOAD)
+@@ -177,7 +178,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
+         else:
+             self.window.add(TextWidget(_("Choose an installation source type.")))
+             self._container.add(TextWidget(_("CD/DVD")), self._set_cd_install_source)
+-            self._container.add(TextWidget(_("local ISO file")), self._set_iso_install_source)
+             self._container.add(TextWidget(_("Network")), self._set_network_install_source)
+ 
+             if self._hmc:
+-- 
+2.7.4
+

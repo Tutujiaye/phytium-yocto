@@ -1,0 +1,14 @@
+{
+  "device": "/dev/dri/card0",
+  "hwcursor": true,
+  "outputs": [
+    {
+      "name": "VGA1",
+      "mode": "1920x1080"
+    },
+    {
+      "name": "HDMI1",
+      "mode": "1920x1080"
+    }
+  ]
+}

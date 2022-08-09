@@ -1,0 +1,5 @@
+bootloader --ptable gpt
+part /boot  --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/boot --fstype=vfat --label gpt --active --align 4096 --use-uuid   --overhead-factor 1.0
+part /  --source rootfs  --rootfs-dir=${IMAGE_ROOTFS}/boot  --ondisk sda --fstype=ext4 --label systemboot --align 4096 --fsuuid 5b8015f3-84e8-4445-9ed0-5c478cf88c87
+part /  --source rootfs  --ondisk sda --fstype=ext4 --label platform --uuid 5b8015f3-84e8-4445-9ed0-5c478cf88c88 --align 4096 --size 2G 
+part /  --source rootfs  --rootfs-dir=${IMAGE_ROOTFS}/copy  --ondisk sda --fstype=ext4 --label secondary --fsuuid 5b8015f3-84e8-4445-9ed0-5c478cf88c89 --align 4096 --size 2G

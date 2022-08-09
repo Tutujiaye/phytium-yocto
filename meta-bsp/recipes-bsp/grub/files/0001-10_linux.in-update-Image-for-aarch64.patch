@@ -1,0 +1,40 @@
+From b15d1de99677ce4ed8c259e5b8e3eb6141a052f2 Mon Sep 17 00:00:00 2001
+From: guochunrong <guochunrong@phytium.com.cn>
+Date: Fri, 11 Dec 2020 15:57:09 +0800
+Subject: [PATCH] 10_linux.in:update Image for aarch64
+
+Signed-off-by: guochunrong <guochunrong@phytium.com.cn>
+---
+ util/grub.d/10_linux.in     | 2 +-
+ util/grub.d/20_linux_xen.in | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index cba2617..d1fec3b 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -169,7 +169,7 @@ case "x$machine" in
+ 	done ;;
+     *)
+ 	list=
+-	for i in /boot/bzImage-* /boot/vmlinuz-* /boot/vmlinux-* /bzImage-* /vmlinuz-* /vmlinux-* /boot/kernel-* ; do
++	for i in /boot/bzImage-* /boot/vmlinuz-* /boot/vmlinux-* /bzImage-* /vmlinuz-* /vmlinux-* /boot/Image-* ; do
+                   if grub_file_is_not_garbage "$i" ; then list="$list $i" ; fi
+ 	done ;;
+ esac
+diff --git a/util/grub.d/20_linux_xen.in b/util/grub.d/20_linux_xen.in
+index 98d16ae..8af3537 100644
+--- a/util/grub.d/20_linux_xen.in
++++ b/util/grub.d/20_linux_xen.in
+@@ -154,7 +154,7 @@ EOF
+ }
+ 
+ linux_list=
+-for i in /boot/bzImage[xz]-* /bzImage[xz]-* /boot/vmlinu[xz]-* /vmlinu[xz]-* /boot/kernel-*; do
++for i in /boot/bzImage[xz]-* /bzImage[xz]-* /boot/vmlinu[xz]-* /vmlinu[xz]-* /boot/Image-*; do
+     if grub_file_is_not_garbage "$i"; then
+     	basename=$(basename $i)
+ 	version=$(echo $basename | sed -e "s,^[^0-9]*-,,g")
+-- 
+2.17.1
+

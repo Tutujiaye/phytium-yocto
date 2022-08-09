@@ -1,0 +1,153 @@
+Upstream-Status: Backport [https://github.com/rhinstaller/anaconda/commit/5d81a7f]
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+
+From 5d81a7faa67bc065a6e309561865d1682abbcee4 Mon Sep 17 00:00:00 2001
+From: Martin Pitt <mpitt@redhat.com>
+Date: Wed, 7 Oct 2020 07:26:18 +0200
+Subject: [PATCH] Fix SECTION headers in docstrings
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Make them coincide with the class names. The missing "Anaconda" prefix
+causes a build failure with gobject-introspection ≥ 1.61.1 due to [1]:
+
+    Namespace conflict: DocSection('BaseWindow')
+
+See https://bugzilla.redhat.com/show_bug.cgi?id=1885825 for some
+details.
+
+[1] https://gitlab.gnome.org/GNOME/gobject-introspection/-/commit/346c0690fe62f614ecb1f55857ea72939d9c0f83
+---
+ widgets/src/BaseStandalone.c     | 2 +-
+ widgets/src/BaseWindow.c         | 2 +-
+ widgets/src/DiskOverview.c       | 2 +-
+ widgets/src/HubWindow.c          | 2 +-
+ widgets/src/LayoutIndicator.c    | 2 +-
+ widgets/src/MountpointSelector.c | 2 +-
+ widgets/src/SpokeSelector.c      | 2 +-
+ widgets/src/SpokeWindow.c        | 2 +-
+ widgets/src/StandaloneWindow.c   | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/widgets/src/BaseStandalone.c b/widgets/src/BaseStandalone.c
+index 361f94d0d..ae84bfc09 100644
+--- a/widgets/src/BaseStandalone.c
++++ b/widgets/src/BaseStandalone.c
+@@ -22,7 +22,7 @@
+ #include "intl.h"
+ 
+ /**
+- * SECTION: BaseStandalone
++ * SECTION: AnacondaBaseStandalone
+  * @title: AnacondaBaseStandalone
+  * @short_description: Abstract base class for standalone Anaconda windows.
+  *
+diff --git a/widgets/src/BaseWindow.c b/widgets/src/BaseWindow.c
+index dfa98bf1b..2aa493ad9 100644
+--- a/widgets/src/BaseWindow.c
++++ b/widgets/src/BaseWindow.c
+@@ -30,7 +30,7 @@
+  #include <atk/atk.h>
+ 
+ /**
+- * SECTION: BaseWindow
++ * SECTION: AnacondaBaseWindow
+  * @title: AnacondaBaseWindow
+  * @short_description: Top-level, non-resizeable window
+  *
+diff --git a/widgets/src/DiskOverview.c b/widgets/src/DiskOverview.c
+index c9e6e0b11..2d5aec4da 100644
+--- a/widgets/src/DiskOverview.c
++++ b/widgets/src/DiskOverview.c
+@@ -27,7 +27,7 @@
+ #include "widgets-common.h"
+ 
+ /**
+- * SECTION: DiskOverview
++ * SECTION: AnacondaDiskOverview
+  * @title: AnacondaDiskOverview
+  * @short_description: A widget that displays basic information about a disk
+  *
+diff --git a/widgets/src/HubWindow.c b/widgets/src/HubWindow.c
+index 77d89e85a..02ecde4cc 100644
+--- a/widgets/src/HubWindow.c
++++ b/widgets/src/HubWindow.c
+@@ -22,7 +22,7 @@
+ #include "intl.h"
+ 
+ /**
+- * SECTION: HubWindow
++ * SECTION: AnacondaHubWindow
+  * @title: AnacondaHubWindow
+  * @short_description: Window for displaying a Hub
+  *
+diff --git a/widgets/src/LayoutIndicator.c b/widgets/src/LayoutIndicator.c
+index 6e83eddfc..9fcd983e6 100644
+--- a/widgets/src/LayoutIndicator.c
++++ b/widgets/src/LayoutIndicator.c
+@@ -36,7 +36,7 @@
+ #define DEFAULT_LABEL_MAX_CHAR_WIDTH 8
+ 
+ /**
+- * SECTION: LayoutIndicator
++ * SECTION: AnacondaLayoutIndicator
+  * @title: AnacondaLayoutIndicator
+  * @short_description: An indicator of currently activated X layout
+  *
+diff --git a/widgets/src/MountpointSelector.c b/widgets/src/MountpointSelector.c
+index e87ba6bc0..e4b1ad380 100644
+--- a/widgets/src/MountpointSelector.c
++++ b/widgets/src/MountpointSelector.c
+@@ -29,7 +29,7 @@
+ #include "widgets-common.h"
+ 
+ /**
+- * SECTION: MountpointSelector
++ * SECTION: AnacondaMountpointSelector
+  * @title: AnacondaMountpointSelector
+  * @short_description: A graphical way to select a mount point.
+  *
+diff --git a/widgets/src/SpokeSelector.c b/widgets/src/SpokeSelector.c
+index 56db10264..a6c680a20 100644
+--- a/widgets/src/SpokeSelector.c
++++ b/widgets/src/SpokeSelector.c
+@@ -28,7 +28,7 @@
+ #include "widgets-common.h"
+ 
+ /**
+- * SECTION: SpokeSelector
++ * SECTION: AnacondaSpokeSelector
+  * @title: AnacondaSpokeSelector
+  * @short_description: A graphical way to enter a configuration spoke
+  *
+diff --git a/widgets/src/SpokeWindow.c b/widgets/src/SpokeWindow.c
+index 226eb2cfc..7a958c695 100644
+--- a/widgets/src/SpokeWindow.c
++++ b/widgets/src/SpokeWindow.c
+@@ -25,7 +25,7 @@
+ #include <gdk/gdkkeysyms.h>
+ 
+ /**
+- * SECTION: SpokeWindow
++ * SECTION: AnacondaSpokeWindow
+  * @title: AnacondaSpokeWindow
+  * @short_description: Window for displaying single spokes
+  *
+diff --git a/widgets/src/StandaloneWindow.c b/widgets/src/StandaloneWindow.c
+index 8a92e7b2b..cc3154751 100644
+--- a/widgets/src/StandaloneWindow.c
++++ b/widgets/src/StandaloneWindow.c
+@@ -25,7 +25,7 @@
+ #include <gdk/gdkkeysyms.h>
+ 
+ /**
+- * SECTION: StandaloneWindow
++ * SECTION: AnacondaStandaloneWindow
+  * @title: AnacondaStandaloneWindow
+  * @short_description: Window for displaying standalone spokes
+  *
+-- 
+2.25.1
+

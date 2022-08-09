@@ -1,0 +1,26 @@
+From 39e0738084142cf178b5d45309b78c92a3da4812 Mon Sep 17 00:00:00 2001
+From: chunrong <guochunrong@phytium.com.cn>
+Date: Thu, 18 Nov 2021 10:07:11 +0800
+Subject: [PATCH] Makefile.am: remove tests
+
+Signed-off-by: chunrong <guochunrong@phytium.com.cn>
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 2ab67ed7..c63504e9 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -2,7 +2,7 @@ ACLOCAL_AMFLAGS = -I m4
+ 
+ EXTRA_DIST = MAINT
+ 
+-SUBDIRS = src magic tests doc python
++SUBDIRS = src magic doc python
+ 
+ # This variable must have 'exec' in its name, in order to be installed
+ # by 'install-exec' target (instead of default 'install-data')
+-- 
+2.17.1
+

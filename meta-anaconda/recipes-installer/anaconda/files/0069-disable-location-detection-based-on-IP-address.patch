@@ -1,0 +1,31 @@
+From 4146f8d052dc2ad7c81beaba76d95dd95696370e Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 8 Apr 2019 13:56:52 +0800
+Subject: [PATCH 2/2] disable location detection based on IP address
+
+It network is not working, it failed.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ pyanaconda/geoloc.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/pyanaconda/geoloc.py b/pyanaconda/geoloc.py
+index 12059ce..dc332f7 100644
+--- a/pyanaconda/geoloc.py
++++ b/pyanaconda/geoloc.py
+@@ -473,6 +473,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
+         return "Fedora GeoIP"
+ 
+     def _refresh(self):
++        pass
++
++    def __refresh(self):
+         try:
+             reply = self._session.get(self.API_URL,
+                                       timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+-- 
+2.7.4
+

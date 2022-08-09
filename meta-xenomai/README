@@ -1,0 +1,72 @@
+This README file contains information on the contents of themeta-xenomai layer.
+
+Current version supports Raspberry Pi 3 ("raspberrypi3" target from meta-raspberrypi) tested
+on Morty (2.2), Pyro (2.3), Rocko (2.4).
+
+Please see the corresponding sections below for details.
+
+
+Dependencies
+============
+
+This layer depends on:
+
+## Dependencies
+
+This layer depends on:
+
+* URI: git://git.yoctoproject.org/poky
+  * branch: master
+  * revision: HEAD
+
+* URI: git://git.openembedded.org/openembedded-core
+  layers: meta
+  branch: master
+
+*  URI: git://git.yoctoproject.org/meta-raspberrypi
+  layers: meta-raspberrypi
+  branch: master
+
+Patches
+=======
+
+Please submit any patches against the meta-xenomai layer :
+
+Maintainer: Pierre FICHEUX <pierre.ficheux@gmail.com>
+
+
+Table of Contents
+=================
+
+  I. Adding the meta-xenomai layer to your build
+ II. Misc
+
+
+I. Adding the meta-xenomai layer to your build
+=================================================
+
+In order to use this layer, you need to make the build system aware of it.
+
+Assuming the meta-xenomai layer exists at the top-level of your
+yocto build tree, you can add it to the build system by adding the
+location of the meta-xenomai layer to bblayers.conf, along with any
+other layers needed. e.g.:
+
+  BBLAYERS ?= " \
+    ...
+    /path/to/yocto/meta-xenomai \
+    "
+
+
+II. Misc
+========
+
+The "ENABLE_UART = 1"  option should *NOT* be used with Xenomai and Pi 3. 
+
+Please add the following lines to your conf/local.conf :
+
+MACHINE = "raspberrypi3"
+
+PREFERRED_PROVIDER_virtual/kernel = "linux-xenomai-rpi3"
+IMAGE_INSTALL_append = " xenomai rt-tests"
+SERIAL_CONSOLE = "115200 ttyAMA0" 

@@ -1,0 +1,25 @@
+From 8fa347dd69ce660811ed9f6e5637448b16690de9 Mon Sep 17 00:00:00 2001
+From: guochunrong <guochunrong@phytium.com.cn>
+Date: Mon, 2 Aug 2021 14:55:19 +0800
+Subject: [PATCH] add elgfs support
+
+Signed-off-by: guochunrong <guochunrong@phytium.com.cn>
+---
+ mkspecs/linux-oe-g++/qmake.conf | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/mkspecs/linux-oe-g++/qmake.conf b/mkspecs/linux-oe-g++/qmake.conf
+index c202c47fa1..e29795d7fd 100644
+--- a/mkspecs/linux-oe-g++/qmake.conf
++++ b/mkspecs/linux-oe-g++/qmake.conf
+@@ -35,5 +35,7 @@ isEmpty(QMAKE_QT_CONFIG):QMAKE_QT_CONFIG = $$(OE_QMAKE_QT_CONFIG)
+ 
+ include(../oe-device-extra.pri)
+ 
++EGLFS_DEVICE_INTEGRATION = eglfs_pvr
++
+ load(device_config)
+ load(qt_config)
+-- 
+2.17.1
+

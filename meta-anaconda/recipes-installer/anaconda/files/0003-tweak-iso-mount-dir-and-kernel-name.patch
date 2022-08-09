@@ -1,0 +1,106 @@
+From 367fc710a94d802ace273c7aebb8f5f96647370b Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 24 Jun 2019 14:45:50 +0800
+Subject: [PATCH] tweak iso mount dir and kernel name
+
+- Tweak iso mount dir based on WRLinux
+
+- Tweak kernel name based on OE
+
+- Tweak nfs mount point of base repository to "/media/source"
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+
+* update context for anaconda 32
+* backport patch from Upstream to 'Handle bytes and strings from RPM'
+* replace obsolete function 'util.getSysroot'
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ pyanaconda/core/constants.py   |  6 +++---
+ pyanaconda/payload/__init__.py | 19 +++++++++++++------
+ 2 files changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/pyanaconda/core/constants.py b/pyanaconda/core/constants.py
+index deb048db4..f45cb6fc4 100644
+--- a/pyanaconda/core/constants.py
++++ b/pyanaconda/core/constants.py
+@@ -47,12 +47,12 @@ TRANSLATIONS_UPDATE_DIR = "/tmp/updates/po"
+ VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
+ 
+ ANACONDA_CLEANUP = "anaconda-cleanup"
+-MOUNT_DIR = "/run/install"
+-DRACUT_REPODIR = "/run/install/repo"
++MOUNT_DIR = "/media/realroot"
++DRACUT_REPODIR = MOUNT_DIR + "/Packages"
+ DRACUT_ISODIR = "/run/install/source"
+ ISO_DIR = MOUNT_DIR + "/isodir"
+ IMAGE_DIR = MOUNT_DIR + "/image"
+-INSTALL_TREE = MOUNT_DIR + "/source"
++INSTALL_TREE = "/media/source"
+ BASE_REPO_NAME = "anaconda"
+ 
+ # Get list of repo names witch should be used as base repo
+diff --git a/pyanaconda/payload/__init__.py b/pyanaconda/payload/__init__.py
+index be3530e59..3525e7ca6 100644
+--- a/pyanaconda/payload/__init__.py
++++ b/pyanaconda/payload/__init__.py
+@@ -24,7 +24,7 @@ from fnmatch import fnmatch
+ from abc import ABCMeta
+ 
+ from pyanaconda.core.configuration.anaconda import conf
+-from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR
++from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR
+ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
+ 
+ from pyanaconda import isys
+@@ -630,7 +630,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
+         if "kernel" in self.data.packages.excludedList:
+             return []
+ 
+-        kernels = ["kernel"]
++        kernels = ["kernel-image"]
+ 
+         if payload_utils.arch_is_x86() and isys.isPaeAvailable():
+             kernels.insert(0, "kernel-PAE")
+@@ -655,13 +655,17 @@ class PackagePayload(Payload, metaclass=ABCMeta):
+         files = []
+ 
+         ts = rpm.TransactionSet(conf.target.system_root)
+-        mi = ts.dbMatch('providename', 'kernel')
++        mi = ts.dbMatch()
++        mi.pattern('name', rpm.RPMMIRE_GLOB, 'kernel-image*')
+         for hdr in mi:
++            log.info("hdr.filenames %s" % hdr.filenames)
+             unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
+             # Find all /boot/vmlinuz- files and strip off vmlinuz-
+             files.extend((f.split("/")[-1][8:] for f in unicode_fnames
+-                         if fnmatch(f, "/boot/vmlinuz-*") or
+-                         fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
++                         if (fnmatch(f, "/boot/*") or fnmatch(f, "/boot/efi/EFI/%s/*" % conf.bootloader.efi_dir))
++                            and len(f.split("/")[-1]) > 7))
++
++        log.info("kernelVersionList %s" % files)
+ 
+         return sorted(files, key=functools.cmp_to_key(payload_utils.version_cmp))
+ 
+@@ -987,11 +991,14 @@ class PackagePayload(Payload, metaclass=ABCMeta):
+         url = None
+ 
+         # FIXME: We really should not talk about NFS here - regression from re-factorization?
++        repo_device_path = payload_utils.get_mount_device_path(MOUNT_DIR)
+ 
+         # Check for valid optical media if we didn't boot from one
+-        if not verifyMedia(DRACUT_REPODIR):
++        if not verifyMedia(MOUNT_DIR):
+             self.install_device = find_optical_install_media()
+ 
++        log.info("device %s, install_device %s" % (repo_device_path, self.install_device))
++
+         # Only look at the dracut mount if we don't already have a cdrom
+         if repo_device_path and not self.install_device:
+             self.install_device = payload_utils.resolve_device(repo_device_path)
+-- 
+2.7.4

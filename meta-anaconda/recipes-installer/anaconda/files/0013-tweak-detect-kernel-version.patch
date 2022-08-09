@@ -1,0 +1,74 @@
+From a6ea1bfa11c05082ee061ba1d766f79fbfc77938 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Tue, 25 Jun 2019 15:40:11 +0800
+Subject: [PATCH] tweak detect kernel version
+
+According kernel layout in oe-core, tweak the detection
+rather than using redhat's.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ pyanaconda/bootloader/installation.py | 21 +++++++++++++--------
+ pyanaconda/payload/livepayload.py     | 12 +++++++++---
+ 2 files changed, 22 insertions(+), 11 deletions(-)
+
+diff --git a/pyanaconda/bootloader/installation.py b/pyanaconda/bootloader/installation.py
+index 8f6d999..b620ab3 100644
+--- a/pyanaconda/bootloader/installation.py
++++ b/pyanaconda/bootloader/installation.py
+@@ -105,14 +105,19 @@ def _write_sysconfig_kernel(sysroot, storage):
+     log.debug("Writing to /etc/sysconfig/kernel.")
+ 
+     # get the name of the default kernel package based on the version
+-    kernel_basename = "vmlinuz-" + storage.bootloader.default.version
+-    kernel_file = "/boot/%s" % kernel_basename
+-    if not os.path.isfile(sysroot + kernel_file):
+-        efi_dir = conf.bootloader.efi_dir
+-        kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
+-        if not os.path.isfile(sysroot + kernel_file):
+-            log.error("failed to recreate path to default kernel image")
+-            return
++    def _get_kernel_file(kernel_basename):
++        _kernel_file = "/boot/%s" % kernel_basename
++        if not os.path.isfile(sysroot + _kernel_file):
++            efi_dir = conf.bootloader.efi_dir
++            _kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
++            if not os.path.isfile(sysroot + _kernel_file):
++                return None
++        return _kernel_file
++
++    kernel_file = _get_kernel_file("vmlinux") or _get_kernel_file("bzImage")
++    if kernel_file is None:
++        log.error("failed to recreate path to default kernel image")
++        return
+ 
+     try:
+         import rpm
+diff --git a/pyanaconda/payload/livepayload.py b/pyanaconda/payload/livepayload.py
+index aaafa20..235a3b5 100644
+--- a/pyanaconda/payload/livepayload.py
++++ b/pyanaconda/payload/livepayload.py
+@@ -230,9 +230,15 @@ class LiveImagePayload(Payload):
+         return Size(get_dir_size("/") * 1024)
+ 
+     def _update_kernel_version_list(self):
+-        files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
+-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
+-                               conf.bootloader.efi_dir))
++        for kernel in ["vmlinux", "bzImage"]:
++            files = glob.glob(INSTALL_TREE + "/boot/%s-*" % kernel)
++            files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/%s-*" %
++                                   (conf.bootloader.efi_dir, kernel)))
++
++            versions = sorted((f.split("/")[-1][8:] for f in files if os.path.isfile(f)))
++            if versions:
++                log.info("kernel versions: %s", versions)
++                break
+ 
+         self._kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
+                                            if os.path.isfile(f) and "-rescue-" not in f),
+-- 
+2.7.4
+

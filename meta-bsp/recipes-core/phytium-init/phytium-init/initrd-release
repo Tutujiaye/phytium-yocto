@@ -1,0 +1,6 @@
+NAME="dracut"
+VERSION="8 (Core) dracut-049-70.git20200228.el8"
+ID=dracut
+VERSION_ID=049-70.git20200228.el8
+PRETTY_NAME="Phytium Linux (Core) dracut-049-70.git20200228.el8 (Initramfs)"
+ANSI_COLOR="0;34"

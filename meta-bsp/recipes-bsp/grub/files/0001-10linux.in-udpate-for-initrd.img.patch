@@ -1,0 +1,26 @@
+From 4ad40e726083335c027d29d076d9537a12984752 Mon Sep 17 00:00:00 2001
+From: guochunrong <guochunrong@phytium.com.cn>
+Date: Thu, 17 Dec 2020 14:38:24 +0800
+Subject: [PATCH] 10linux.in : udpate for initrd.img
+
+Signed-off-by: guochunrong <guochunrong@phytium.com.cn>
+---
+ util/grub.d/10_linux.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index d1fec3b..97e49ac 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -212,7 +212,7 @@ while [ "x$list" != "x" ] ; do
+ 
+   initrd_real=
+   for i in "initrd.img-${version}" "initrd-${version}.img" "initrd-${version}.gz" \
+-	   "initrd-${version}" "initramfs-${version}.img" \
++	   "initramfs.img" "initramfs-${version}.img" \
+ 	   "initrd.img-${alt_version}" "initrd-${alt_version}.img" \
+ 	   "initrd-${alt_version}" "initramfs-${alt_version}.img" \
+ 	   "initramfs-genkernel-${version}" \
+-- 
+2.17.1
+

@@ -1,0 +1,12 @@
+[Unit]
+Description=Xserver startup with a display manager
+
+[Service]
+EnvironmentFile=/etc/default/xserver-xfce
+ExecStartPre=rm -rf /home/root/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+ExecStart=/usr/bin/startxfce4
+Restart=always
+Environment="LD_LIBRARY_PATH=/usr/local/lib"
+
+[Install]
+Alias=display-manager.service

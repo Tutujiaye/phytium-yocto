@@ -1,0 +1,54 @@
+From c0faa221bfb713b2287ed2f101285d56f28ba091 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Sat, 29 Jun 2019 12:56:02 +0800
+Subject: [PATCH] do not support network setting for now
+
+We have a long term plan to support it, but not now.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+
+Refactor for anaconda 32.
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ pyanaconda/core/configuration/system.py | 3 ++-
+ pyanaconda/installation.py              | 7 -------
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/pyanaconda/core/configuration/system.py b/pyanaconda/core/configuration/system.py
+index 2018bfac1f..b5daa8303c 100644
+--- a/pyanaconda/core/configuration/system.py
++++ b/pyanaconda/core/configuration/system.py
+@@ -135,7 +135,8 @@ class SystemSection(Section):
+     @property
+     def can_configure_network(self):
+         """Can we configure the network?"""
+-        return self._is_boot_iso or self._is_booted_os
++        # Do not support network config for now
++        return False
+ 
+     @property
+     def can_detect_unsupported_hardware(self):
+diff --git a/pyanaconda/installation.py b/pyanaconda/installation.py
+index 4f515329f6..1f420528a9 100644
+--- a/pyanaconda/installation.py
++++ b/pyanaconda/installation.py
+@@ -104,13 +104,6 @@ def _prepare_configuration(payload, ksdata):
+ 
+     configuration_queue.append(os_config)
+ 
+-    # schedule network configuration (if required)
+-    if conf.system.provides_network_config:
+-        overwrite = isinstance(payload, LiveImagePayload)
+-        network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
+-        network_config.append(Task("Network configuration",
+-                                   network.write_configuration, (overwrite, )))
+-        configuration_queue.append(network_config)
+ 
+     # add installation tasks for the Users DBus module
+     user_config = TaskQueue("User creation", N_("Creating users"))
+-- 
+2.7.4
+

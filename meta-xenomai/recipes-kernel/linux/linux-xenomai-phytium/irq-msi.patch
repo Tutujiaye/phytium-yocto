@@ -1,0 +1,14 @@
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index 7c03e29..49cfcc3 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -992,7 +992,8 @@ void __ipipe_end_level_irq(struct irq_desc *desc)
+ 
+ void __ipipe_ack_fasteoi_irq(struct irq_desc *desc)
+ {
+-	desc->irq_data.chip->irq_hold(&desc->irq_data);
++	if (desc->irq_data.chip->irq_hold)
++		desc->irq_data.chip->irq_hold(&desc->irq_data);
+ }
+ 
+ void __ipipe_end_fasteoi_irq(struct irq_desc *desc)

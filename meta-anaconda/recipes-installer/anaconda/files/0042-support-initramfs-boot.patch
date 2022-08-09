@@ -1,0 +1,88 @@
+From cedfb60b4cea33edcc6308875a5c8b2aa255bc20 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Sat, 29 Jun 2019 15:46:45 +0800
+Subject: [PATCH] support initramfs boot
+
+- Create fake initramfs to cheat grub-mkconfig which
+  could generate grub.cfg that have initrd setting.
+
+- Make sure temp dir existed which required by dracut while live install.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+
+Update for anaconda 32:
+* refactor code to create fake initrd file
+* replace obsolete function util.getSysroot()
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ pyanaconda/bootloader/installation.py | 14 ++++++++++++--
+ pyanaconda/payload/__init__.py        |  4 ++++
+ 2 files changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/pyanaconda/bootloader/installation.py b/pyanaconda/bootloader/installation.py
+index 57d139b3e1..d220dc828d 100644
+--- a/pyanaconda/bootloader/installation.py
++++ b/pyanaconda/bootloader/installation.py
+@@ -47,7 +47,7 @@ def configure_boot_loader(sysroot, storage, kernel_versions):
+         return
+ 
+     # Collect the boot loader images.
+-    _collect_os_images(storage, kernel_versions)
++    _collect_os_images(storage, kernel_versions, sysroot)
+ 
+     # Write out /etc/sysconfig/kernel.
+     _write_sysconfig_kernel(sysroot, storage)
+@@ -64,7 +64,7 @@ def _get_rescue_kernel_versions(sysroot):
+     return [f.split("/")[-1][8:] for f in rescue_versions]
+ 
+ 
+-def _collect_os_images(storage, kernel_versions):
++def _collect_os_images(storage, kernel_versions, sysroot):
+     """Collect the OS images for the boot loader.
+ 
+     :param storage: an instance of the storage
+@@ -86,6 +86,12 @@ def _collect_os_images(storage, kernel_versions):
+     storage.bootloader.add_image(default_image)
+     storage.bootloader.default = default_image
+ 
++    # Create fake initramfs to cheat grub-mkconfig
++    initrd = sysroot + "/boot/initramfs-%s.img" % version
++    if not os.path.exists(initrd):
++        with open(initrd, 'w') as f:
++            f.write('\n')
++
+     # now add an image for each of the other kernels
+     for version in kernel_versions:
+         label = "%s-%s" % (base_label, version)
+@@ -95,6 +101,10 @@ def _collect_os_images(storage, kernel_versions):
+                                      label=label, short=short)
+         storage.bootloader.add_image(image)
+ 
++        initrd = sysroot + "/boot/initramfs-%s.img" % version
++        if not os.path.exists(initrd):
++            with open(initrd, 'w') as f:
++                f.write('\n')
+ 
+ def _write_sysconfig_kernel(sysroot, storage):
+     """Write to /etc/sysconfig/kernel.
+diff --git a/pyanaconda/payload/__init__.py b/pyanaconda/payload/__init__.py
+index 949652d6a8..eb4dff1537 100644
+--- a/pyanaconda/payload/__init__.py
++++ b/pyanaconda/payload/__init__.py
+@@ -530,6 +530,10 @@ class Payload(metaclass=ABCMeta):
+             log.debug("new-kernel-pkg does not exist, using dracut instead.")
+             use_dracut = True
+ 
++        # Make sure temp dir existed, dracut requires it while live install
++        for subdir in ["log", "tmp"]:
++            util.mkdirChain(conf.target.system_root + "/var/volatile/%s" % subdir)
++
+         for kernel in self.kernel_version_list:
+             log.info("recreating initrd for %s", kernel)
+             if not conf.target.is_image:
+-- 
+2.7.4
+

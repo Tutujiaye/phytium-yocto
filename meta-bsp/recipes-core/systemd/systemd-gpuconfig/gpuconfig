@@ -1,0 +1,9 @@
+#!/bin/sh
+FILEVG=/usr/km/img_mem.ko
+FILEVG3D=/usr/km/vxd.ko
+if  [ -e $FILEVG3D ] && [ -e $FILEVG ]
+then
+
+    insmod /usr/km/img_mem.ko
+    insmod /usr/km/vxd.ko
+fi

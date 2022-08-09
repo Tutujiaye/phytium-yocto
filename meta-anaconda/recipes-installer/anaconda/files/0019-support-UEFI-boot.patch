@@ -1,0 +1,68 @@
+From 010deba8daea262d0ffb000f4d8bf96e6b4ddd82 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Sat, 29 Jun 2019 11:17:49 +0800
+Subject: [PATCH] support UEFI boot
+
+- tweak grub efi package name based on oe-core
+
+- tweak efi_dir according to oe-core's EFI layout
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ pyanaconda/bootloader/efi.py | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/pyanaconda/bootloader/efi.py b/pyanaconda/bootloader/efi.py
+index 0f4131f..377eb10 100644
+--- a/pyanaconda/bootloader/efi.py
++++ b/pyanaconda/bootloader/efi.py
+@@ -36,7 +36,12 @@ class EFIBase(object):
+ 
+     @property
+     def _config_dir(self):
+-        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
++        return "efi/EFI/BOOT"
++
++    @property
++    def config_file(self):
++        """ Full path to configuration file. """
++        return "%s/grub/%s" % (self.config_dir, self._config_file)
+ 
+     def efibootmgr(self, *args, **kwargs):
+         if not conf.target.is_hardware:
+@@ -132,8 +137,8 @@ class EFIBase(object):
+ 
+ class EFIGRUB(EFIBase, GRUB2):
+     """EFI GRUBv2"""
+-    _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
+-    _packages_common = [ "efibootmgr", "grub2-tools" ]
++    _packages32 = [ "grub-efi" ]
++    _packages_common = [ "efibootmgr" ]
+     can_dual_boot = False
+     stage2_is_valid_stage1 = False
+     stage2_bootable = False
+@@ -142,7 +147,7 @@ class EFIGRUB(EFIBase, GRUB2):
+ 
+     def __init__(self):
+         super().__init__()
+-        self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
++        self._packages64 = [ "grub-efi" ]
+ 
+         try:
+             f = open("/sys/firmware/efi/fw_platform_size", "r")
+@@ -157,8 +162,8 @@ class EFIGRUB(EFIBase, GRUB2):
+     @property
+     def _efi_binary(self):
+         if self._is_32bit_firmware:
+-            return "\\shimia32.efi"
+-        return "\\shimx64.efi"
++            return "\\bootia32.efi"
++        return "\\bootx64.efi"
+ 
+     @property
+     def packages(self):
+-- 
+2.7.4
+

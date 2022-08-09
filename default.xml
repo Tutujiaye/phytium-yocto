@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote fetch="https://gitee.com/phytium_embedded/" name="gitee"/>
+  <remote fetch="http://gitlab.phytium.com.cn/guochunrong/" name="teamwork"/>
+  <remote fetch="ssh://git@10.10.240.123" name="phytium"/>
+  <remote fetch="git://github.com/meta-qt5" name="QT5"/>
+  <remote fetch="git://github.com/schnitzeltony" name="QT5EXT"/>
+  <remote fetch="git://github.com" name="github"/>
+  <remote fetch="git://github.com/openembedded" name="oe"/>
+  <remote fetch="git://git.yoctoproject.org" name="yocto"/>
+  
+  <default sync-j="2"/>
+  
+  <project name="phytium-sdk" path="sources/meta-phytium" remote="teamwork" revision="main">
+    <copyfile dest="setup-env" src="tools/setup-env"/>
+  </project>
+  <project name="poky" path="sources/poky" remote="gitee" revision="424296bf9bb4bae27febf91bce0118df09ce5fa1"/>
+  <project name="meta-virtualization" path="sources/meta-virtualization" remote="gitee" revision="43e774fafe02c166cdf59c8733b0fe820987771e"/>
+  <project name="meta-qt5-extra" path="sources/meta-qt5-extra" remote="gitee" revision="776a2d732ec923317b3ed93ec2a735f809b5ad15"/>
+  <project name="meta-qt5" path="sources/meta-qt5" remote="gitee" revision="43120725aaeedc88eecbc345a1b7e9adfa45e120"/>
+  <project name="meta-openembedded" path="sources/meta-openembedded" remote="gitee" revision="e413c1ef621688e69bb7830bb3151ed23b30b73e"/>
+  <project name="schnitzeltony/meta-mortsgna" path="sources/meta-mortsgna" remote="github" revision="55b9f3daaa39d4c7d93095ab1e7cb13cc53d7df4"/>
+  <project name="meta-rust/meta-rust" path="sources/meta-rust" remote="github" revision="7f235b6f8973cc5269448375f2a8f9867bb2a369"/>
+  <project name="kraj/meta-clang" path="sources/meta-clang" remote="github" revision="76c6751d721a4265e01bb71d8dc4fb46dca6602f"/>
+</manifest>

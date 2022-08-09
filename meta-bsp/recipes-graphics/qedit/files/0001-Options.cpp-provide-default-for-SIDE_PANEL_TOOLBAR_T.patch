@@ -1,0 +1,33 @@
+From 0c9e80df71bde69179edcb6847eb381eeec5cf7c Mon Sep 17 00:00:00 2001
+From: Max Krummenacher <max.krummenacher@toradex.com>
+Date: Tue, 26 Dec 2017 20:05:37 +0100
+Subject: [PATCH] Options.cpp: provide default for
+ SIDE_PANEL_TOOLBAR_TEXT_POSITION
+
+prevents the following:
+
+| # qedit
+| 2017/12/26 17:24:23 Options::_find - invalid option: SIDE_PANEL_TOOLBAR_TEXT_POSITION
+| Segmentation fault (core dumped)
+
+Signed-off-by: Max Krummenacher <max.krummenacher@toradex.com>
+---
+ base/Options.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/base/Options.cpp b/base/Options.cpp
+index 2fb2c9f..cd099c6 100644
+--- a/base/Options.cpp
++++ b/base/Options.cpp
+@@ -62,6 +62,8 @@ void Options::installDefaultOptions()
+     set( "FIXED_FONT_NAME", "Sans Serif,10" );
+     set( "FONT_NAME", "Monospace,10" );
+ 
++    set<int>( "SIDE_PANEL_TOOLBAR_TEXT_POSITION", 0 );
++
+     // toolbars default configuration
+     set<int>( "TOOLBUTTON_ICON_SIZE", 0 );
+     set<int>( "TOOLBUTTON_TEXT_POSITION", -1 );
+-- 
+2.13.6
+
