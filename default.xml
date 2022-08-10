@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote fetch="ssh://git@gitee.com:22/phytium_embedded" name="gitee"/>
+  <remote fetch="https://gitee.com/phytium_embedded" name="gitee"/>
   <remote fetch="https://github.com" name="githubs"/>
   <remote fetch="https://git.openembedded.org" name="oe"/>
   <remote fetch="git://github.com" name="github"/>
