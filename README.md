@@ -29,7 +29,7 @@ https://www.yoctoproject.org/docs/3.3/brief-yoctoprojectqs/brief-yoctoprojectqs.
 
    $: cd <release>
 
-   $: repo init -u ssh://git@gitee.com:22/phytium_embedded/phytium-linux-yocto.git  -m default.xml
+   $: repo init -u https://gitee.com/phytium_embedded/phytium-linux-yocto.git  -m default.xml
 
    $: repo sync --force-sync
 ```

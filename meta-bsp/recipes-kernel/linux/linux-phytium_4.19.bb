@@ -25,7 +25,7 @@ ZIMAGE_BASE_NAME = "zImage-${PKGE}-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 ZIMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 SCMVERSION ?= "y"
-LOCALVERSION = ""
+LOCALVERSION = "-phytium-embeded"
 DELTA_KERNEL_DEFCONFIG ?= ""
 DELTA_KERNEL_DEFCONFIG_prepend = "e2000_defconfig"
 
