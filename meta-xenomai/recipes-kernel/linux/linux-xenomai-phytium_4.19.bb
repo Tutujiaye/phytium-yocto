@@ -9,26 +9,13 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 LINUX_VERSION_EXTENSION = "-xeno"
 
-#PV = "${LINUX_VERSION}+git${SRCPV}"
 
-IPIPE_PATCH = "ipipe-core-4.19.115-arm64-6.patch"
-XENOMAI_SRC = "xenomai-v3.1.2"
+XENOMAI_SRC = "xenomai-v3.1.3"
 
 # Xenomai source (prepare_kernel.sh script)
-SRC_URI += "https://source.denx.de/Xenomai/xenomai/-/archive/v3.1.2/${XENOMAI_SRC}.tar.bz2;name=xeno"
-SRC_URI += "file://${IPIPE_PATCH}"
-SRC_URI += "file://irq-msi.patch"
-SRC_URI += "file://irqchip_adapt.patch"
-SRC_URI += "file://0001-ft2004-devboard-d4-dsk-xenomai-uart0-add-dts.patch"
+SRC_URI += "https://source.denx.de/Xenomai/xenomai/-/archive/v3.1.3/${XENOMAI_SRC}.tar.bz2;name=xeno"
 
 SRC_URI[xeno.md5sum] = "3d3583d8fd1fc75e0b0561786d4cebb7"
-
-#INITRAMFS_IMAGE = "core-image-minimal-initramfs"
-#INITRAMFS_IMAGE_BUNDLE = "1"
-
-KERNEL_DEVICETREE += "\
-    phytium/ft2004-devboard-d4-dsk-xenomai-uart0.dtb \
-"
 
 do_prepare_kernel () {
     # Set linux kernel source directory
@@ -65,7 +52,7 @@ ZIMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 SCMVERSION ?= "y"
 LOCALVERSION = ""
 DELTA_KERNEL_DEFCONFIG ?= ""
-DELTA_KERNEL_DEFCONFIG_prepend = "sdk.config"
+DELTA_KERNEL_DEFCONFIG_prepend = "cobalt.config"
 
 do_merge_delta_config[dirs] = "${B}"
 
