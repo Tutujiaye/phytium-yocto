@@ -1,6 +1,8 @@
 rootfs_copy_core_image() {
     mkdir -p ${IMAGE_ROOTFS}/boot
-    cp ${DEPLOY_DIR_IMAGE}/${DEF_DEVICETREE} ${IMAGE_ROOTFS}/boot/
+    for DTB in ${DEF_DEVICETREE}; do
+    	cp ${DEPLOY_DIR_IMAGE}/${DTB} ${IMAGE_ROOTFS}/boot/
+    done
 }
 rootfs_copy_core_image_lxqt() {
     mkdir -p ${IMAGE_ROOTFS}/boot

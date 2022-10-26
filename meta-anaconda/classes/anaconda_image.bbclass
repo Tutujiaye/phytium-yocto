@@ -19,7 +19,10 @@ build_iso_prepend() {
 	ln -snf /.discinfo ${ISODIR}/.discinfo
 	ln -snf /.buildstamp ${ISODIR}/.buildstamp
 	ln -snf /Packages ${ISODIR}/Packages
-        cp ${DEPLOY_DIR_IMAGE}/${DEF_DEVICETREE} ${ISODIR}/ft2000.dtb
+        for DTB in ${DEF_DEVICETREE}; do
+        	cp ${DEPLOY_DIR_IMAGE}/${DTB} ${ISODIR}/
+        done
+
 }
 
 build_iso_append() {
