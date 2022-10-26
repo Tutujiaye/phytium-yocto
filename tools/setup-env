@@ -177,7 +177,6 @@ LAYER_LIST=" \
     meta-office \
     meta-clang \
     meta-virtualization \
-    meta-arm/meta-arm-toolchain \    
 "
 EULA_FILE="$PHYROOTDIR/EULA"
 
