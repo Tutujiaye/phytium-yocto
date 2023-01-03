@@ -39,7 +39,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 IMAGE_FSTYPES = "tar.gz ext2.gz ext4"
 
 IMAGE_INSTALL_GPU =" kmscube libdrm-tests xorg-rogue-umlibs xorg-rogue-umlibs-dev systemd-gpuconfig"
-IMAGE_INSTALL_VPU =" vpu-modules vpu-modules-dev"
+IMAGE_INSTALL_VPU =" vpu-lib vpu-lib-dev"
 
 IMAGE_INSTALL += "packagegroup-phy-virtualization \
     packagegroup-core-tools-testapps \

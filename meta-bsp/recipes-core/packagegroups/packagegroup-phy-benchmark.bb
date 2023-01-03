@@ -16,7 +16,7 @@ RDEPENDS_${PN}-core = "\
     lmbench \
     netperf \
     mtd-utils alsa-utils can-utils  netcat devmem2 evtest libgpiod \
-    tcpdump memtester fio \
+    tcpdump memtester fio coremark unixbench bpftrace \
 "
 RDEPENDS_${PN}-extended = " \
     ${PN}-core \

@@ -39,7 +39,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 IMAGE_FSTYPES = "tar.gz ext2.gz ext4"
 
 IMAGE_INSTALL_GPU =" kmscube libdrm-tests xorg-rogue-umlibs xorg-rogue-umlibs-dev systemd-gpuconfig"
-IMAGE_INSTALL_VPU =" vpu-modules vpu-modules-dev"
+IMAGE_INSTALL_VPU =" vpu-lib vpu-lib-dev"
 
 IMAGE_INSTALL += "packagegroup-phy-virtualization \
     packagegroup-core-tools-testapps \
@@ -58,7 +58,10 @@ IMAGE_INSTALL += "packagegroup-phy-virtualization \
     gtk+3 default-locale \
     qedit evince xdg-user-dirs \
     lmsensors-sensors \
+    binutils make cmake gcc-symlinks g++-symlinks cpp-symlinks pkgconfig \
+    libomxil htop lsscsi lshw alsa-tools bison flex \
+    cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg \
     packagegroup-gui-base \
     ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${IMAGE_INSTALL_GPU}', '', d)} \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'vpu', '${IMAGE_INSTALL_VPU}', '', d)} \
+    ${IMAGE_INSTALL_VPU} \
 "

@@ -1,11 +1,15 @@
-require linux-phytium.inc
 inherit kernel siteinfo
 inherit phy-kernel-localversion
 
 SUMMARY = "Linux Kernel for Phytium platforms"
 SECTION = "kernel"
 LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
+LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
+
+KERNEL_BRANCH ?= "linux-5.10-rt"
+SRC_URI = "git://gitee.com/phytium_embedded/phytium-linux-kernel.git;protocol=https;branch=${KERNEL_BRANCH} "
+
+SRCREV = "466fb2197bb13f5c515e0ae81a4d3462c5a229f0"
 
 S = "${WORKDIR}/git"
 
@@ -25,7 +29,7 @@ ZIMAGE_BASE_NAME = "zImage-${PKGE}-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 ZIMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 SCMVERSION ?= "y"
-LOCALVERSION = ""
+LOCALVERSION = "-phytium-embeded"
 DELTA_KERNEL_DEFCONFIG ?= ""
 DELTA_KERNEL_DEFCONFIG_prepend = "e2000_defconfig"
 
@@ -55,7 +59,7 @@ do_merge_delta_config() {
 }
 
 do_uboot_mkimage() {
-   uboot-mkimage -A arm64 -O linux -T kernel -C none -a 0x80080000 -e 0x80080000  -n "4.19" -d ${DEPLOY_DIR_IMAGE}/Image ${DEPLOY_DIR_IMAGE}/uImage
+   uboot-mkimage -A arm64 -O linux -T kernel -C none -a 0x80080000 -e 0x80080000  -n "5.10" -d ${DEPLOY_DIR_IMAGE}/Image ${DEPLOY_DIR_IMAGE}/uImage
 }
 addtask merge_delta_config before do_preconfigure after do_patch do_prepare_recipe_sysroot
 addtask uboot_mkimage before do_package_write_rpm after do_deploy 

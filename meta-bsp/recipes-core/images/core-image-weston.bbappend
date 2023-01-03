@@ -1,7 +1,7 @@
 # DISTRO_FEATURES_remove = " x11"
 
 IMAGE_INSTALL_GPU =" systemd-gpuconfig wayland-rogue-umlibs wayland-rogue-umlibs-dev"
-IMAGE_INSTALL_VPU =" vpu-modules vpu-modules-dev"
+IMAGE_INSTALL_VPU =" vpu-lib vpu-lib-dev"
 
 IMAGE_INSTALL_append =" packagegroup-qt5-demos \
      packagegroup-qt5-phytium \
