@@ -1,4 +1,3 @@
-require linux-phytium.inc
 inherit kernel siteinfo
 inherit phy-kernel-localversion
 
@@ -8,6 +7,10 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 KERNEL_BRANCH = "linux-4.19-rt"
+
+SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-linux-kernel.git;protocol=ssh;branch=${KERNEL_BRANCH} "
+
+SRCREV = "3e955191e4cff4cc2ed0ffdc085aa2830a83ebb4"
 
 S = "${WORKDIR}/git"
 

@@ -102,6 +102,9 @@ https://docs.yoctoproject.org/3.3/ref-manual/index.html
 
     Set PREFERRED_PROVIDER_virtual/kernel = "linux-phytium-rt" in your local.conf.
 
+ 2. How do I build linux 4.19 version in the Yocto Project ?
+    
+    Set PREFERRED_VERSION_linux-phytium = "4.19" in your local.conf.
 
 # Contribute
   Please submit any patches to guochunrong@phytium.com.cn
