@@ -60,7 +60,7 @@ IMAGE_INSTALL += "packagegroup-phy-virtualization \
     lmsensors-sensors \
     binutils make cmake gcc-symlinks g++-symlinks cpp-symlinks pkgconfig \
     libomxil htop lsscsi lshw alsa-tools bison flex \
-    cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg \
+    cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg openssl-dev \
     packagegroup-gui-base \
     ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${IMAGE_INSTALL_GPU}', '', d)} \
     ${IMAGE_INSTALL_VPU} \
