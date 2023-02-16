@@ -9,6 +9,7 @@
   <remote fetch="https://git.yoctoproject.org/git" name="yoctos"/>
   <remote fetch="git://git.yoctoproject.org" name="yocto"/>
   <remote fetch="git://github.com/schnitzeltony" name="office"/>
+  <remote fetch="https://github.com/meta-qt5" name="QT5"/>
   <default sync-j="2"/>
   
   <project name="phytium-linux-yocto" path="sources/meta-phytium" remote="gitee" revision="master">
@@ -17,7 +18,7 @@
   <project name="poky" path="sources/poky" remote="gitee" revision="14c5392fded42f17962e1cc07fcc0446881b4fa0"/>
   <project name="meta-virtualization" path="sources/meta-virtualization" remote="yoctos" revision="3415134f7dae5a691b29dc8b2b5fc571f21b3906"/>
   <project name="meta-qt5-extra" path="sources/meta-qt5-extra" remote="gitee" revision="6575019b7b6632c38bfda695a27802fc0176087d"/>
-  <project name="meta-qt5" path="sources/meta-qt5" remote="gitee" revision="43f8f539d40070a70fe89136db89bf5bb1dfe7ed"/>
+  <project name="meta-qt5" path="sources/meta-qt5" remote="QT5" revision="44d44933200287f7d17cf6981af4b4a0961c308d"/>
   <project name="meta-openembedded" path="sources/meta-openembedded" remote="gitee" revision="d378e4293d18e374f5d1494a88bfc3caee4d02df"/>
   <project name="meta-clang" path="sources/meta-clang" remote="gitee" revision="2207df98559afc19d6a0243027bbac18980fc764"/>
   <project name="meta-browser" path="sources/meta-browser" remote="gitee" revision="8be1d3a0ba0cf32e61144900597207af5698c10d"/>
