@@ -6,9 +6,9 @@ LIC_FILES_CHKSUM = "file://LICENSE.md;md5=0a18b17ae63deaa8a595035f668aebe1"
 #SRCREV = "${AUTOREV}"
 #S = "${WORKDIR}/git"
 
-SRC_URI = "https://github.com/eembc/coremark/archive/refs/heads/main.zip;downloadfilename=${PN}-${PV}.zip"
-SRC_URI[md5sum] = "c45f8e30ddaa228dce49c236bea619fa"
-SRC_URI[sha256sum] = "19506f966695f2df5fc3700f1ae84660735c44b85bc6dba8346344043369fe6e"
+SRC_URI = "https://github.com/eembc/coremark/archive/refs/heads/main.zip;downloadfilename=${BPN}-${PV}.zip"
+SRC_URI[md5sum] = "48c3ff241018dbdbc790d5833e662679"
+SRC_URI[sha256sum] = "e8f070f2358bb4b20f3b8b88215986717538e4d32e794bb166eda58d6fa516f4"
 
 S = "${WORKDIR}/coremark-main"
 

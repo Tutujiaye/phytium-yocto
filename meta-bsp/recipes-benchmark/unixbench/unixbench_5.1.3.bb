@@ -7,8 +7,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 #S = "${WORKDIR}/git"
 
 SRC_URI = "https://github.com/kdlucas/byte-unixbench/archive/refs/heads/master.zip;downloadfilename=byte-unixbench-${PV}.zip"
-SRC_URI[md5sum] = "7f0e19328f04bf3e60668297a5622171"
-SRC_URI[sha256sum] = "0c4e5a553b24ffb65927d0fafb70ecac48a4c4f8305902afbd9b7a97d3282ebc"
+SRC_URI[md5sum] = "4eac102bd3655a97d73626b54db2b1f2"
+SRC_URI[sha256sum] = "292c31eade39c3f5eb247cf8fd5733917700e21b455183a9a03c550c24ffce05"
 S = "${WORKDIR}/byte-unixbench-master"
 B = "${S}/UnixBench"
 
