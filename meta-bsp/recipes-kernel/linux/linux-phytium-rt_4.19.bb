@@ -10,7 +10,7 @@ KERNEL_BRANCH = "linux-4.19-rt"
 
 SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-linux-kernel.git;protocol=ssh;branch=${KERNEL_BRANCH} "
 
-SRCREV = "3e955191e4cff4cc2ed0ffdc085aa2830a83ebb4"
+SRCREV = "b8dd7858666953b815bc8995db4fb5a66eeee26f"
 
 S = "${WORKDIR}/git"
 

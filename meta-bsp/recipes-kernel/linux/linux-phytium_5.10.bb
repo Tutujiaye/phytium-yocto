@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 KERNEL_BRANCH ?= "linux-5.10"
 SRC_URI = "git://gitee.com/phytium_embedded/phytium-linux-kernel.git;protocol=https;branch=${KERNEL_BRANCH} "
 
-SRCREV = "f0cc7d6de6976f4b2b88d425a91878d948106f80"
+SRCREV = "d734b714dcf61afd3a3d6fd5458895a944800081"
 
 S = "${WORKDIR}/git"
 
