@@ -12,9 +12,10 @@ SRC_URI[sha256sum] = "292c31eade39c3f5eb247cf8fd5733917700e21b455183a9a03c550c24
 S = "${WORKDIR}/byte-unixbench-master"
 B = "${S}/UnixBench"
 
+DEPENDS = "virtual/libgl virtual/libx11"
 RDEPENDS_${PN} += "perl perl-modules"
 
-EXTRA_OEMAKE = "CC='${CC}' UB_GCC_OPTIONS='${CFLAGS}'"
+EXTRA_OEMAKE = "CC='${CC}' UB_GCC_OPTIONS='${CFLAGS}' GRAPHIC_TESTS=defined"
 
 do_install(){
 	install -d ${D}/opt/unixbench
