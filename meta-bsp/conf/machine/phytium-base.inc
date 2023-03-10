@@ -29,6 +29,7 @@ XSERVER ?= "xserver-xorg \
 	    xf86-video-modesetting \
 "
 PREFERRED_VERSION_gstreamer1.0-libav ?= "1.16.0"
+PREFERRED_VERSION_ffmpeg ?= "4.2.4"
 PREFERRED_VERSION_xen = "4.15+stableAUTOINC+e25aa9939a"
 PREFERRED_VERSION_xen-tools = "4.15+stableAUTOINC+e25aa9939a"
 PREFERRED_VERSION_lshw = "02.18"
