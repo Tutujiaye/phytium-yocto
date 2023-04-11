@@ -1,16 +1,15 @@
-SUMMARY = "Gst-Shark Tracers"
-DESCRIPTION = "Benchmarks and profiling tools for GStreamer"
-HOMEPAGE = "https://developer.ridgerun.com/wiki/index.php?title=GstShark"
+SUMMARY = "vpu binary static library"
+DESCRIPTION = "vpu binary static library"
+HOMEPAGE = "https://gitee.com/phytium_embedded/vpu-lib"
 SECTION = "multimedia"
-LICENSE = "GPLv2+"
+LICENSE = "PSLA"
 
-LIC_FILES_CHKSUM = "file://Makefile;md5=ec13c0fd422eb9684f2c898e3516f6c3"
-
+LIC_FILES_CHKSUM = "file://LICENSE;md5=91f9c930eb49a8a38abed6fd1e182588"
 SRCBRANCH ?= "master"
 
 SRC_URI = "git://git@gitee.com/phytium_embedded/vpu-lib.git;branch=${SRCBRANCH};protocol=ssh"
 
-SRCREV = "a3109a35b230a57d860bce66d4369a74c56f12a8"
+SRCREV = "1c5de03cadb170d7389ae43bc297592f047f865e"
 
 S = "${WORKDIR}/git"
 
@@ -22,9 +21,11 @@ do_install () {
          chown -R root:root  ${D}${sysconfdir}/xdg
          chown -R root:root  ${D}/usr/bin/vdec_test
          chown -R root:root  ${D}/usr/lib
-         cp ${D}/usr/lib/aarch64-linux-gnu/gstreamer-1.0/*  ${D}/usr/lib/gstreamer-1.0/
+         cp -rf ${D}/usr/lib/aarch64-linux-gnu/gstreamer-1.0/*  ${D}/usr/lib/gstreamer-1.0/
 }
 
 FILES_${PN} += " /usr/lib/* /usr/bin/* /lib/firmware/* /etc/xdg/*"
 INSANE_SKIP_${PN} += "ldflags dev-elf dev-deps file-rdeps"
 INSANE_SKIP_${PN}-dev += "ldflags dev-elf file-rdeps"
+
+CLEANBROKEN = "1"

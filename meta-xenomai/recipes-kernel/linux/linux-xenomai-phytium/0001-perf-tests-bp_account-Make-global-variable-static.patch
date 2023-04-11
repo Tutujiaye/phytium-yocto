@@ -1,0 +1,26 @@
+From 3e23b69713e8ca1159571896208a4f90fab7b711 Mon Sep 17 00:00:00 2001
+From: chunrong <guochunrong@phytium.com.cn>
+Date: Fri, 17 Mar 2023 06:36:37 +0000
+Subject: [PATCH] perf tests bp_account: Make global variable static
+
+Signed-off-by: chunrong <guochunrong@phytium.com.cn>
+---
+ tools/perf/tests/bp_account.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/perf/tests/bp_account.c b/tools/perf/tests/bp_account.c
+index a20cbc445..624e4ef73 100644
+--- a/tools/perf/tests/bp_account.c
++++ b/tools/perf/tests/bp_account.c
+@@ -22,7 +22,7 @@
+ #include "perf.h"
+ #include "cloexec.h"
+ 
+-volatile long the_var;
++static volatile long the_var;
+ 
+ static noinline int test_function(void)
+ {
+-- 
+2.17.1
+

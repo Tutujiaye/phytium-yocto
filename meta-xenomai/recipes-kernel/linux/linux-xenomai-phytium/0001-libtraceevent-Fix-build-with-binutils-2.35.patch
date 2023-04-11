@@ -1,0 +1,26 @@
+From 406f6b7af292787511b8a3a9eef4fab264c845ed Mon Sep 17 00:00:00 2001
+From: chunrong <guochunrong@phytium.com.cn>
+Date: Fri, 17 Mar 2023 08:06:57 +0000
+Subject: [PATCH] libtraceevent: Fix build with binutils 2.35
+
+Signed-off-by: chunrong <guochunrong@phytium.com.cn>
+---
+ tools/lib/traceevent/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/lib/traceevent/Makefile b/tools/lib/traceevent/Makefile
+index 05f8a0f27..b7f7e4e54 100644
+--- a/tools/lib/traceevent/Makefile
++++ b/tools/lib/traceevent/Makefile
+@@ -263,7 +263,7 @@ define do_generate_dynamic_list_file
+ 	xargs echo "U w W" | tr 'w ' 'W\n' | sort -u | xargs echo`;\
+ 	if [ "$$symbol_type" = "U W" ];then				\
+ 		(echo '{';						\
+-		$(NM) -u -D $1 | awk 'NF>1 {print "\t"$$2";"}' | sort -u;\
++		$(NM) -u -D $1 | awk 'NF>1 {sub("@.*", "", $$2); print "\t"$$2";"}' | sort -u;\
+ 		echo '};';						\
+ 		) > $2;							\
+ 	else								\
+-- 
+2.17.1
+

@@ -1,4 +1,4 @@
-DESCRIPTION = "Userspace libraries for PowerVR Rogue GPU on Phytium SoCs"
+DESCRIPTION = "Userspace libraries for PowerVR Rogue GPU in Phytium SoCs"
 HOMEPAGE = "https://gitee.com/phytium_embedded/phytium-rogue-umlibs.git"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://README.md;md5=d368237c2530f972311f84ee015a42b7"

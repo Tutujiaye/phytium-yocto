@@ -3,14 +3,14 @@ SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-linux-kernel.git;prot
 inherit kernel siteinfo
 inherit phy-kernel-localversion
 
-SUMMARY = "Linux Kernel for Phytium platforms"
+SUMMARY = "Linux Kernel for Phytium platform"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 
 S = "${WORKDIR}/git"
 
 DEPENDS_append = " libgcc u-boot-tools-native"
-# not put Images into /boot of rootfs, install kernel-image if needed
+# Images shouldn't be placed in the '/boot' directory in the rootfs, install kernel-image if needed
 RDEPENDS_${KERNEL_PACKAGE_NAME}-base = ""
 
 KERNEL_CC_append = " ${TOOLCHAIN_OPTIONS}"
@@ -32,7 +32,7 @@ DELTA_KERNEL_DEFCONFIG_prepend = "e2000_defconfig"
 do_merge_delta_config[dirs] = "${B}"
 
 do_merge_delta_config() {
-    # create config with make config
+    # create config by executing the command 'make config
     oe_runmake  -C ${S} O=${B} ${KERNEL_DEFCONFIG}
 
     # check if bigendian is enabled
