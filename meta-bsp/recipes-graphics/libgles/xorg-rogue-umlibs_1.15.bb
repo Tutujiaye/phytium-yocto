@@ -7,7 +7,7 @@ inherit features_check
 
 REQUIRED_MACHINE_FEATURES = "gpu"
 
-SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-rogue-umlibs.git;branch=${BRANCH};protocol=ssh"
+SRC_URI = "git://git@gitee.com/phytium_embedded/phytium-rogue-umlibs.git;branch=${BRANCH};protocol=https"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 PACKAGES += "${PN}-firmware"

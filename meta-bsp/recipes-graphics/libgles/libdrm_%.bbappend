@@ -1,4 +1,4 @@
-GPU_UMLIBS = "git://git@gitee.com:22/phytium_embedded/phytium-rogue-umlibs.git;branch=master;protocol=ssh;destsuffix=git/;name=umlibs"
+GPU_UMLIBS = "git://git@gitee.com/phytium_embedded/phytium-rogue-umlibs.git;branch=master;protocol=https;destsuffix=git/;name=umlibs"
 
 SRC_URI_append = " ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${GPU_UMLIBS}', '', d)}"
 SRCREV_umlibs = "${AUTOREV}"

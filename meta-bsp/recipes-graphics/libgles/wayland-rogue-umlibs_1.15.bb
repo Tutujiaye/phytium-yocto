@@ -11,7 +11,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 BRANCH = "master"
 
-SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-rogue-umlibs.git;branch=${BRANCH};protocol=ssh"
+SRC_URI = "git://git@gitee.com/phytium_embedded/phytium-rogue-umlibs.git;branch=${BRANCH};protocol=https"
 
 SRCREV = "97b939baee78fb8604b10f2fc5de316701b84546"
 
