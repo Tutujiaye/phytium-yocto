@@ -7,7 +7,7 @@ LICENSE = "BSD"
 RDEPENDS_${PN} = "imlib2-loaders"
 DEPENDS = "imlib2 giblib"
 
-MIRRORS_prepend () {
+MIRRORS:prepend () {
 }
 
 SRC_URI = " \

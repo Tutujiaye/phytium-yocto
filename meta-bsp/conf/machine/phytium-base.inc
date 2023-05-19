@@ -1,11 +1,13 @@
 # common providers of QorIQ targets
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-phytium"
 
-SOC_DEFAULT_IMAGE_FSTYPES = "tar.gz ext2.gz.u-boot ext2.gz cpio.gz"
+SOC_DEFAULT_IMAGE_FSTYPES = "tar.gz ext2.gz.u-boot cpio.gz"
 IMAGE_FSTYPES ?= "${SOC_DEFAULT_IMAGE_FSTYPES}"
 
 MACHINE_FEATURES ?= "pci ext2 ext3 serial usbhost alsa touchscreen keyboard"
 MACHINE_EXTRA_RRECOMMENDS += "udev-extraconf kernel-modules"
+
+MACHINE_FEATURES:remove = " pcbios"
 
 KERNEL_IMAGETYPE ?= "Image"
 
@@ -24,7 +26,7 @@ MACHINE_ARCH_FILTER = "virtual/kernel"
 XSERVER ?= "xserver-xorg \
             ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'mesa-driver-swrast xserver-xorg-extension-glx', '', d)} \
             xf86-video-fbdev \
-            xf86-video-amd \
+            xf86-video-amdgpu \
             xf86-video-ati \
 	    xf86-video-modesetting \
 "

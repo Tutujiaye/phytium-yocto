@@ -11,16 +11,18 @@ require recipes-core/images/core-image-minimal.bb
 DESCRIPTION = "A small image just capable of allowing a device to boot plus a \
 real-time test suite and tools appropriate for real-time use."
 
+IMAGE_INSTALL_VPU =" vpu-firmware"
+
 IMAGE_INSTALL += "grub-efi rt-tests hwlatdetect kernel-modules xenomai xenomai-demos stress-ng \
        packagegroup-core-ssh-dropbear \
        packagegroup-core-buildessential \
        xenomai-dev \
+       wireless-regdb-static \
+       ${IMAGE_INSTALL_VPU} \
 "
 
 LICENSE = "MIT"
 
-WKS_FILE_intel-corei7-64 = "core-image-rt.wks.in"
-WKS_FILE_raspberrypi3 = "core-image-rt.wks.in"
 WKS_FILE = "core-image-rt.wks.in"
 
-do_rootfs[depends] += "core-image-minimal-initramfs:do_image_complete"
+do_rootfs[depends] += "phytium-image-initramfs:do_image_complete"

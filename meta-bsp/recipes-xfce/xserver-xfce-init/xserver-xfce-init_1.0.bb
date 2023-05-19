@@ -1,5 +1,5 @@
 DESCRIPTION = "XFCE initscript"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
 SECTION = "x11"
 
@@ -35,10 +35,10 @@ do_install() {
 }
 
 # Get util-linux for su
-RDEPENDS_${PN} = "xserver-common (>= 1.30) xinit xfce4-session util-linux"
+RDEPENDS:${PN} = "xserver-common (>= 1.30) xinit xfce4-session util-linux"
 
-FILES_${PN} += "${sysconfdir}/default/xserver-xfce ${systemd_unitdir}/system/xserver-xfce.service"
+FILES:${PN} += "${sysconfdir}/default/xserver-xfce ${systemd_unitdir}/system/xserver-xfce.service"
 
-SYSTEMD_SERVICE_${PN} = "xserver-xfce.service"
+SYSTEMD_SERVICE:${PN} = "xserver-xfce.service"
 
-RCONFLICTS_${PN} = "xserver-nodm-init"
+RCONFLICTS:${PN} = "xserver-nodm-init"

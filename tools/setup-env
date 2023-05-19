@@ -38,7 +38,7 @@ if [ "$(whoami)" = "root" ]; then
     return
 fi
 
-OEROOTDIR=${ROOTDIR}/sources/poky
+OEROOTDIR=${ROOTDIR}/sources/meta-phytium/poky
 if [ -e ${ROOTDIR}/sources/oe-core ]; then
     OEROOTDIR=${ROOTDIR}/sources/oe-core
 fi
@@ -59,7 +59,6 @@ For more information about OpenEmbedded see their website:
 You can now run 'bitbake <target>'
     core-image-minimal
     core-image-sato
-    qt4e-demo-image
     core-image-weston
     core-image-xfce
 "
@@ -70,7 +69,7 @@ You can now run 'bitbake <target>'
 clean_up()
 {
    unset PROGNAME ROOTDIR OEROOTDIR PHYROOTDIR PROJECT_DIR \
-         EULA EULA_FILE LAYER_LIST MACHINE FSLDISTRO EXTRAROOTDIR \
+         LAYER_LIST MACHINE FSLDISTRO EXTRAROOTDIR \
          OLD_OPTIND CPUS JOBS THREADS DOWNLOADS CACHES DISTRO \
          setup_flag setup_h setup_j setup_t setup_g setup_l setup_builddir \
          setup_download setup_sstate setup_error layer append_layer \
@@ -102,7 +101,7 @@ usage() {
     You are using dash which does not pass args when being sourced.
     To workaround this limitation, use \"set -- args\" prior to
     sourcing this script. For exmaple:
-        \$ set -- -m ft2000 -j 3 -t 2
+        \$ set -- -m e2000 -j 3 -t 2
         \$ . $ROOTDIR/$PROGNAME
 "
     fi
@@ -170,15 +169,11 @@ LAYER_LIST=" \
     meta-openembedded/meta-multimedia \
     meta-openembedded/meta-xfce \
     meta-openembedded/meta-initramfs \
-    meta-phytium/meta-anaconda \
+    meta-anaconda \
     meta-phytium/meta-xenomai \
-    meta-phytium/meta-rust \
-    meta-browser/meta-firefox \
-    meta-office \
     meta-clang \
     meta-virtualization \
 "
-EULA_FILE="$PHYROOTDIR/EULA"
 
 DISTRO="phytium"
 
@@ -292,55 +287,6 @@ for s in $HOME/.oe $HOME/.yocto; do
         ln -s $s/site.conf conf
     fi
 done
-
-
-# Handle EULA setting
-if [ -z "$EULA" ] && ! grep -q '^ACCEPT_PHY_EULA\s*=' conf/local.conf; then
-    EULA='ask'
-fi
-
-if [ "$EULA" = "ask" ]; then
-    cat <<EOF
-
-Proprietary and third party software is subject to agreement and compliance
-with, Phytium's End User License Agreement. To have the right to use these
-binaries in your images, you must read and accept the following terms.  If
-there are conflicting terms embedded in the software, the terms embedded in
-the Software will control.
-
-In all cases,  open source software is licensed under the terms of the
-applicable open source license(s), such as the BSD License, Apache License or
-the GNU Lesser General Public License.  Your use of the open source software
-is subject to the terms of each applicable license.  You must agree to the
-terms of each applicable license, or you cannot use the open source software.
-
-EOF
-
-    sleep 5
-
-    more -d $EULA_FILE
-    echo
-    while [ "$EULA" = "ask" ]; do
-        echo -n "Do you accept the EULA you just read? (y/n) "
-        read REPLY
-        case "$REPLY" in
-            y|Y)
-            echo "EULA has been accepted."
-            EULA="1"
-            ;;
-            n|N)
-            echo "EULA has not been accepted."
-            EULA="0"
-            ;;
-        esac
-    done
-fi
-
-if grep -q '^ACCEPT_PHY_EULA\s*=' conf/local.conf; then
-    sed -i "s/^#*ACCEPT_PHY_EULA\s*=.*/ACCEPT_PHY_EULA = \"$EULA\"/g" conf/local.conf
-else
-    echo "ACCEPT_PHY_EULA = \"$EULA\"" >> conf/local.conf
-fi
 
 # make a SOURCE_THIS file
 if [ ! -e SOURCE_THIS ]; then

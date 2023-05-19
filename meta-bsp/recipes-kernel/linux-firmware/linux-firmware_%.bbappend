@@ -1,4 +1,4 @@
-do_install_append() {
+do_install:append() {
       rm -rf  ${D}/lib/firmware/ti-connectivity/
       rm -rf ${D}/lib/firmware/RTL8192E/
       rm -rf ${D}/lib/firmware/atmel/

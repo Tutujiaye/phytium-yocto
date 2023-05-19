@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://hellowindow-phy.desktop"
 # Install hellowindow demo as a default QT APP on all platforms
@@ -14,7 +14,7 @@ do_install () {
 # hellogl_es2.desktop & qt5basket.desktop & qt5nesting.desktop & qt5solarsystem.desktop
 # as they are not supported
 
-do_install_append () {
+do_install:append () {
     install -m 0644 ${WORKDIR}/cinematicexperience.png ${D}/${datadir}/pixmaps
     install -m 0644 ${WORKDIR}/cinematicexperience.desktop ${D}/${datadir}/applications
     install -m 0644 ${WORKDIR}/qt5everywheredemo.png ${D}/${datadir}/pixmaps

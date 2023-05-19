@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " libusb"
+PACKAGECONFIG:append = " libusb"

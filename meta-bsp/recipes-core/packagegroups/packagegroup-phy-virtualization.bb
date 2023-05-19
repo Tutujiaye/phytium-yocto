@@ -10,7 +10,7 @@ inherit packagegroup
 
 PACKAGES = "${PN}"
 
-RDEPENDS_${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', \
+RDEPENDS:${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', \
     'libvirt \
     libvirt-libvirtd \
     libvirt-virsh \
@@ -24,4 +24,4 @@ DOCKER_PKGS = " \
     docker-registry \
 "
 
-RDEPENDS_${PN}_append = " ${DOCKER_PKGS}"
+RDEPENDS:${PN} += " ${DOCKER_PKGS}"

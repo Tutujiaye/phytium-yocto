@@ -6,24 +6,23 @@ PACKAGE_INSTALL = " \
     base-files \
     udev \
     systemd-initramfs \
-    lvm2 \
-    lvm2-udevrules \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'anaconda-support', 'lvm2 lvm2-udevrules', '', d)} \
     phytium-init \
-    linux-firmware linux-firmware-radeon \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', 'xorg-rogue-umlibs-firmware', '', d)} \
+    vpu-firmware \
+    wireless-regdb-static \
+    kernel-modules \
 "
-
+PACKAGE_EXCLUDE = "kernel-image-*" 
 
 inherit phy-utils
 
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_copy_initramfs_target;"
-
 
 # We want a clean, minimal image.
 IMAGE_FEATURES = ""
 IMAGE_LINGUAS = "en-us en-gb"
 
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
-INITRAMFS_MAXSIZE ??= "630008"
+INITRAMFS_MAXSIZE ??= "380874"
 
 IMAGE_NAME = "initrd.img"

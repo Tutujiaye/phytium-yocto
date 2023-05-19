@@ -1,0 +1,27 @@
+image efi-part.vfat {
+        vfat {
+                file Image {
+                        image = "Image"
+                }
+        }
+
+        size = 400M
+}
+
+image phyimage.img {
+        hdimage {
+                partition-table-type = "mbr"
+        }
+
+        partition boot {
+                image = "efi-part.vfat"
+                partition-type-uuid = c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+                offset = 32K
+                bootable = true
+        }
+
+        partition root {
+                partition-type-uuid = b921b045-1df0-41c3-af44-4c6f280d3fae
+                image = "core-image-xfce-e2000.ext4"
+        }
+}

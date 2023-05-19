@@ -28,7 +28,7 @@ LICENSE = "MIT"
 
 IMAGE_INSTALL_GPU =" nullwm-rogue-umlibs"
 
-IMAGE_INSTALL_append = " \
+IMAGE_INSTALL:append = " \
     packagegroup-qt5-phytium \
     alsa-utils-alsactl \
     alsa-utils-alsamixer \
@@ -36,9 +36,10 @@ IMAGE_INSTALL_append = " \
     packagegroup-core-full-cmdline \
     packagegroup-core-tools-testapps \
     packagegroup-qt5-demos \
+    xserver-nodm-init \
     ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${IMAGE_INSTALL_GPU}', '', d)} \
 "
 IMAGE_INSTALL_GPU =" nullwm-rogue-umlibs"
 
-RDEPENDS_${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'glmark2 qt5-creator xserver-nodm-init ', '', d)} "
+RDEPENDS:${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'glmark2  xserver-nodm-init ', '', d)} "
 

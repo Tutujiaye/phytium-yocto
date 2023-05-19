@@ -4,6 +4,8 @@
 DESCRIPTION = "Package group for PHTTIUM Qt5"
 LICENSE = "MIT"
 
+PACKAGE_ARCH = "${TUNE_PKGARCH}"
+
 inherit packagegroup
 
 # Install fonts
@@ -24,6 +26,6 @@ QT5_IMAGE_INSTALL = " \
 QT5_IMAGE_INSTALL += "${@bb.utils.contains('DISTRO_FEATURES', 'x11','', \
     'qtbase qtbase-plugins', d)}"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     ${QT5_IMAGE_INSTALL} \
 "

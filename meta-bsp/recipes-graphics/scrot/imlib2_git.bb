@@ -8,7 +8,7 @@ PV = "1.4.6+gitr${SRCPV}"
 SRCREV = "560a58e61778d84953944f744a025af6ce986334"
 
 inherit autotools binconfig pkgconfig
-SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git"
+SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git;branch=master"
 S = "${WORKDIR}/git"
 
 # autotools-brokensep
@@ -45,11 +45,11 @@ PRIVATE_LIBS_imlib2-loaders = "pnm.so lbm.so argb.so tiff.so zlib.so bmp.so tga.
 
 PRIVATE_LIBS_imlib2-filters = "bumpmap.so colormod.so testfilter.so"
 
-do_configure_prepend() {
+do_configure:prepend() {
     autopoint || touch config.rpath
 }
 
-do_install_prepend () {
+do_install:prepend () {
     for i in `find ${B}/ -name "*.pc" -type f` ; do \
         sed -i -e 's:-L${STAGING_LIBDIR}:-L\$\{libdir\}:g' -e 's:-I${STAGING_LIBDIR}:-I\$\{libdir\}:g' -e 's:-I${STAGING_INCDIR}:-I\$\{includedir\}:g' $i
     done

@@ -1,0 +1,127 @@
+From 0dbc1a58c152586af0f0a6dfb10aef1e12266a35 Mon Sep 17 00:00:00 2001
+From: chunrong <guochunrong@phytium.com.cn>
+Date: Wed, 1 Mar 2023 07:06:56 +0000
+Subject: [PATCH] pyanaconda: fix install issue
+
+Signed-off-by: chunrong <guochunrong@phytium.com.cn>
+---
+ pyanaconda/modules/payloads/payload/dnf/utils.py     |  2 +-
+ pyanaconda/modules/payloads/payload/live_os/utils.py |  4 ++--
+ pyanaconda/modules/storage/bootloader/efi.py         | 12 ++++++------
+ pyanaconda/modules/storage/bootloader/utils.py       |  7 +++----
+ pyanaconda/modules/storage/platform.py               |  4 ++--
+ 5 files changed, 14 insertions(+), 15 deletions(-)
+
+diff --git a/pyanaconda/modules/payloads/payload/dnf/utils.py b/pyanaconda/modules/payloads/payload/dnf/utils.py
+index 3129615976..72ddc3c06c 100644
+--- a/pyanaconda/modules/payloads/payload/dnf/utils.py
++++ b/pyanaconda/modules/payloads/payload/dnf/utils.py
+@@ -169,7 +169,7 @@ def get_kernel_version_list():
+         files.extend((
+             f.split("/")[-1][8:] for f in unicode_fnames
+             if (fnmatch.fnmatch(f, "/boot/*") or
+-            fnmatch.fnmatch(f, "/boot/efi/EFI/%s/*" % efi_dir)) and
++            fnmatch.fnmatch(f, "/boot/EFI/%s/*" % efi_dir)) and
+             len(f.split("/")[-1]) > 7 and not f.endswith('.sig')
+         ))
+ 
+diff --git a/pyanaconda/modules/payloads/payload/live_os/utils.py b/pyanaconda/modules/payloads/payload/live_os/utils.py
+index 33518723e8..c3178ae66f 100644
+--- a/pyanaconda/modules/payloads/payload/live_os/utils.py
++++ b/pyanaconda/modules/payloads/payload/live_os/utils.py
+@@ -31,9 +31,9 @@ def get_kernel_version_list(root_path):
+     :param root_path: a path to the system root
+     :return: a list of kernel versions
+     """
+-    for kernel in ["vmlinux", "bzImage"]:
++    for kernel in ["vmlinux", "Image"]:
+         files = glob.glob(root_path + "/boot/%s-*" % kernel)
+-        files.extend(glob.glob(root_path + "/boot/efi/EFI/%s/%s-*" %
++        files.extend(glob.glob(root_path + "/boot/EFI/%s/%s-*" %
+                                 (conf.bootloader.efi_dir, kernel)))
+ 
+         versions = sorted((f.split("/")[-1][8:] for f in files if os.path.isfile(f)))
+diff --git a/pyanaconda/modules/storage/bootloader/efi.py b/pyanaconda/modules/storage/bootloader/efi.py
+index c7e33bbd05..2c8c8f759d 100644
+--- a/pyanaconda/modules/storage/bootloader/efi.py
++++ b/pyanaconda/modules/storage/bootloader/efi.py
+@@ -40,7 +40,7 @@ class EFIBase(object):
+ 
+     @property
+     def _efi_config_dir(self):
+-        return "efi/EFI/BOOT"
++        return "EFI/BOOT"
+ 
+     @property
+     def _config_dir(self):
+@@ -150,10 +150,10 @@ class EFIBase(object):
+             else:
+                 raise BootLoaderError("GRUB2 32-bit libdir not eixst")
+         else:
+-            if os.path.exists(conf.target.system_root+"/usr/lib64/grub/x86_64-efi"):
+-                mod_path = "/usr/lib64/grub/x86_64-efi"
+-            elif os.path.exists(util.getSysroot()+"/usr/lib/grub/x86_64-efi"):
+-                mod_path = "/usr/lib/grub/x86_64-efi"
++            if os.path.exists(conf.target.system_root+"/usr/lib/grub/arm64-efi"):
++                mod_path = "/usr/lib/grub/arm64-efi"
++            elif os.path.exists(util.getSysroot()+"/usr/lib/grub/arm64-efi"):
++                mod_path = "/usr/lib/grub/arm64-efi"
+             else:
+                 raise BootLoaderError("GRUB2 64-bit libdir not eixst")
+ 
+@@ -231,7 +231,7 @@ class EFIGRUB(EFIBase, GRUB2):
+ 
+ class Aarch64EFIGRUB(EFIGRUB):
+     _serial_consoles = ["ttyAMA", "ttyS"]
+-    _efi_binary = "\\shimaa64.efi"
++    _efi_binary = "\\BOOTAA64.EFI"
+ 
+     def __init__(self):
+         super().__init__()
+diff --git a/pyanaconda/modules/storage/bootloader/utils.py b/pyanaconda/modules/storage/bootloader/utils.py
+index 2401e19f8d..d000e9de94 100644
+--- a/pyanaconda/modules/storage/bootloader/utils.py
++++ b/pyanaconda/modules/storage/bootloader/utils.py
+@@ -108,8 +108,7 @@ def _get_rescue_kernel_versions(sysroot):
+     :param sysroot: a path to the root of the installed system
+     :return: a list of rescue kernel versions
+     """
+-    rescue_versions = glob(sysroot + "/boot/vmlinuz-*-rescue-*")
+-    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
++    rescue_versions = glob(sysroot + "/boot/Image-*")
+     return [f.split("/")[-1][8:] for f in rescue_versions]
+ 
+ 
+@@ -169,12 +168,12 @@ def _write_sysconfig_kernel(sysroot, storage):
+         _kernel_file = "/boot/%s" % kernel_basename
+         if not os.path.isfile(sysroot + _kernel_file):
+             efi_dir = conf.bootloader.efi_dir
+-            _kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
++            _kernel_file = "/boot/EFI/%s/%s" % (efi_dir, kernel_basename)
+             if not os.path.isfile(sysroot + _kernel_file):
+                 return None
+         return _kernel_file
+ 
+-    kernel_file = _get_kernel_file("vmlinux") or _get_kernel_file("bzImage")
++    kernel_file = _get_kernel_file("vmlinux") or _get_kernel_file("Image")
+     if kernel_file is None:
+         log.error("failed to recreate path to default kernel image")
+         return
+diff --git a/pyanaconda/modules/storage/platform.py b/pyanaconda/modules/storage/platform.py
+index d0aa7cac4a..b2ac193496 100644
+--- a/pyanaconda/modules/storage/platform.py
++++ b/pyanaconda/modules/storage/platform.py
+@@ -490,8 +490,8 @@ def get_platform():
+             return EFI()
+     elif arch.is_x86():
+         return X86()
+-    elif arch.is_arm():
+-        return ARM()
++    elif arch.is_aarch64():
++        return Aarch64EFI()
+     else:
+         raise SystemError("Could not determine system architecture.")
+ 
+-- 
+2.17.1
+

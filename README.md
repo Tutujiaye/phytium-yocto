@@ -4,7 +4,7 @@ Download Yocto Layer
 
 To make sure the build host is prepared for Yocto running and build, please follow below guide to prepare the build environment. 
 
-https://docs.yoctoproject.org/3.3/ref-manual/index.html
+https://docs.yoctoproject.org/4.0.9/ref-manual/index.html
 
 1. Get the Yocto layers from repo manifest:
 
@@ -29,7 +29,7 @@ https://docs.yoctoproject.org/3.3/ref-manual/index.html
 
    $: cd <release>
 
-   $: repo init -u https://gitee.com/phytium_embedded/phytium-linux-yocto.git  -m default.xml
+   $: repo init -u ssh://git@gitee.com:22/phytium_embedded/phytium-linux-yocto.git  -m default.xml
 
    $: repo sync --force-sync
 ```
@@ -56,8 +56,7 @@ https://docs.yoctoproject.org/3.3/ref-manual/index.html
 # Booting the images for supported boards
 
  Prerequisites:
- 1. TFTP server being setup to hold the images.
- 2. A serial cable connected from your PC to UART1
+ 1. A serial cable connected from your PC to UART1
 
  Booting with core-image-minimal rootfs:
 
@@ -68,11 +67,9 @@ https://docs.yoctoproject.org/3.3/ref-manual/index.html
 
      For e2000:
 
-     => mw 0x32b30164 0x44; mw 0x32b30168 0x44; mw 0x31a30038 0x3; mw 0x2807e0c0 0x00
-
      => setenv bootargs console=ttyAMA1,115200  audit=0 earlycon=pl011,0x2800d000 root=/dev/sda2 rw
      
-     => ext4load scsi 0:2 0x90100000 Image; ext4load scsi 0:2 0x90000000 e2000q-miniITX.dtb
+     => ext4load scsi 0:2 0x90100000 Image; ext4load scsi 0:2 0x90000000 <target>.dtb
 
      => booti 0x90100000 - 0x90000000
 
@@ -101,10 +98,12 @@ https://docs.yoctoproject.org/3.3/ref-manual/index.html
  1. How do I build linux rt in the Yocto Project?
 
     Set PREFERRED_PROVIDER_virtual/kernel = "linux-phytium-rt" in your local.conf.
-
+ 
  2. How do I build linux 4.19 version in the Yocto Project ?
-    
+
     Set PREFERRED_VERSION_linux-phytium = "4.19" in your local.conf.
+
+
 
 # Contribute
   Please submit any patches to guochunrong@phytium.com.cn

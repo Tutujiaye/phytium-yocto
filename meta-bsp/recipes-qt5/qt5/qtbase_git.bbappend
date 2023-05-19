@@ -1,11 +1,11 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PHY_BACKEND = \
     "${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', 'x11',\
         bb.utils.contains('DISTRO_FEATURES',     'wayland', 'wayland', \
                                                              'fb', d), d)}"
 
-SRC_URI_append = " \
+SRC_URI:append = " \
     file://qt5-${PHY_BACKEND}.sh \
 "
 SRC_URI_APPEND_3D_NOT_X11 = " \
@@ -15,7 +15,7 @@ SRC_URI_APPEND_3D_NOT_X11 = " \
 
 GPU_EGLFS = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', '', '${SRC_URI_APPEND_3D_NOT_X11}', d)}"
 
-SRC_URI_append = " ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${GPU_EGLFS}', '', d)}"
+SRC_URI:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${GPU_EGLFS}', '', d)}"
 
 # support eglfs include  x11 lib
 # add below env
@@ -23,7 +23,7 @@ SRC_URI_append = " ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${GPU_EGLFS}
 # EGLFS = "-eglfs -kms -no-rpath -accessibility -make examples -compile-examples -xcb -xcb-xlib -no-bundled-xcb-xinput"
 # QT_CONFIG_FLAGS = " ${EGLFS}"
 
-PACKAGECONFIG_append = " accessibility ${PHY_EXA}"
+PACKAGECONFIG:append = " accessibility ${PHY_EXA}"
 
 PHY_EXA = "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'examples', '', d)}"
 
@@ -32,7 +32,7 @@ PACKAGECONFIG_GL = "gles2 gbm kms"
 PACKAGECONFIG_PLATFORM          = ""
 PACKAGECONFIG += "${PACKAGECONFIG_PLATFORM}"
 
-do_install_append () {
+do_install:append () {
     if ls ${D}${libdir}/pkgconfig/Qt5*.pc >/dev/null 2>&1; then
         sed -i 's,-L${STAGING_DIR_HOST}/usr/lib,,' ${D}${libdir}/pkgconfig/Qt5*.pc
     fi

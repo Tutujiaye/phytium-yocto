@@ -1,4 +1,4 @@
-IMAGE_INSTALL_append = " \
+IMAGE_INSTALL:append = " \
     mesa-demos \
     x11perf \
     glmark2 \

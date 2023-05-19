@@ -1,0 +1,26 @@
+image efi-part.vfat {
+        vfat {
+                file Image {
+                        image = "Image"
+                }
+        }
+
+        size = 400M
+}
+
+image phyimage.img {
+        hdimage {
+        }
+
+        partition boot {
+                image = "efi-part.vfat"
+                partition-type = 0x83
+                offset = 32K
+                bootable = true
+        }
+
+        partition root {
+                partition-type = 0x83
+                image = "core-image-xfce-e2000.ext4"
+        }
+}

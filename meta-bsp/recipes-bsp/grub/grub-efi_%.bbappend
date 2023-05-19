@@ -1,4 +1,4 @@
-do_install_append_class-target() {
+do_install:append_class-target() {
         install -d ${D}${EFI_FILES_PATH}
         mv ${D}${EFI_FILES_PATH}/${GRUB_IMAGE} ${D}${EFI_FILES_PATH}/${EFI_BOOT_IMAGE}
 }

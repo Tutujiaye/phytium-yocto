@@ -24,9 +24,7 @@ LICENSE = "MIT"
 
 export IMAGE_BASENAME = "core-image-xfce"
 
-inherit core-image
-
-inherit phy-utils
+inherit core-image  phy-utils
 
 ROOTFS_POSTPROCESS_COMMAND += "${@bb.utils.contains('MACHINE_FEATURES', 'gpu', 'rootfs_ln_xorg;', '', d)}"
 
@@ -36,32 +34,26 @@ do_rootfs[depends] += "phytium-image-initramfs:do_image_complete"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-IMAGE_FSTYPES = "tar.gz ext2.gz ext4"
+IMAGE_FSTYPES = "tar.gz  ext4"
 
-IMAGE_INSTALL_GPU =" kmscube libdrm-tests xorg-rogue-umlibs xorg-rogue-umlibs-dev systemd-gpuconfig"
-IMAGE_INSTALL_VPU =" vpu-lib vpu-lib-dev"
+IMAGE_INSTALL_VPU =" vpu-firmware vpu-lib vpu-lib-dev"
 
 IMAGE_INSTALL += "packagegroup-phy-virtualization \
     packagegroup-core-tools-testapps \
     glmark2 \
     xserver-xfce-init \
     xfce-phytium-settings \
-    packagegroup-qt5-demos \
     openssh \
-    packagegroup-phy-gstreamer1.0 \
-    packagegroup-phy-gstreamer1.0-full \
-    gstreamer1.0-plugins-base-meta \
-    gstreamer1.0-plugins-good-meta \
-    gstreamer1.0-plugins-bad-meta  \
-    alsa-utils-alsactl alsa-utils-alsamixer \
+    packagegroup-phy-gstreamer1.0-full  packagegroup-phy-tools-audio  \ 
+    alsa-utils-alsactl alsa-utils-amixer \
+    ${VIRTUAL-RUNTIME_alsa-state} \
     udev-extra-rules \
     gtk+3 default-locale \
-    qedit evince xdg-user-dirs \
+    evince xdg-user-dirs \
     lmsensors-sensors \
     binutils make cmake gcc-symlinks g++-symlinks cpp-symlinks pkgconfig \
     libomxil htop lsscsi lshw alsa-tools bison flex \
-    cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg openssl-dev \
+    cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg \
     packagegroup-gui-base \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${IMAGE_INSTALL_GPU}', '', d)} \
     ${IMAGE_INSTALL_VPU} \
 "

@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 S = "${WORKDIR}"
 
 DEPENDS = "shadow-native pseudo-native"
-RDEPENDS_${PN} = "bash xfce4-settings xfce4-session xfce4-panel"
+RDEPENDS:${PN} = "bash xfce4-settings xfce4-session xfce4-panel"
 
 homedir = "/home/root"
 confdir = "${homedir}/.config"
@@ -20,7 +20,7 @@ SRC_URI = "file://xfce4/desktop/phytium-desktop-background.jpg \
            file://xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml \
 "
 
-FILES_${PN} = "${backgrounddir}/phytium-desktop-background.jpg \
+FILES:${PN} = "${backgrounddir}/phytium-desktop-background.jpg \
                ${confdir}/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
                ${confdir}/xfce4/panel/launcher-17/file_manager_launcher.desktop \
                ${confdir}/xfce4/panel/launcher-18/terminal_emulator_launcher.desktop \

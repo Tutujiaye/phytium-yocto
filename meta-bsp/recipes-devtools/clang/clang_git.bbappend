@@ -1,1 +1,1 @@
-SYSROOT_PREPROCESS_FUNCS_remove_class-target = " clang_sysroot_preprocess"
+SYSROOT_PREPROCESS_FUNCS:remove_class-target = " clang_sysroot_preprocess"

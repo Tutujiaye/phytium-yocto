@@ -5,12 +5,7 @@ SUMMARY = "Phytium Community package group - full set of all GStreamer 1.0 plugi
 
 inherit packagegroup
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     packagegroup-phy-gstreamer1.0 \
     ${@bb.utils.contains('LICENSE_FLAGS_WHITELIST', 'commercial', 'packagegroup-phy-gstreamer1.0-commercial', '', d)} \
-    gstreamer1.0-plugins-base-meta \
-    gstreamer1.0-plugins-good-meta \
-    gstreamer1.0-plugins-bad-meta \
-    gstreamer1.0-libav \
-    ${@bb.utils.contains('LICENSE_FLAGS_WHITELIST', 'commercial', 'gstreamer1.0-plugins-ugly-meta', '', d)} \
 "

@@ -23,6 +23,6 @@ do_install() {
         
 }
 
-FILES_${PN} = "/sysroot /etc/initrd-release /usr/lib/initrd-release /etc/conf.d/systemd.conf /etc/systemd/ \
+FILES:${PN} = "/sysroot /etc/initrd-release /usr/lib/initrd-release /etc/conf.d/systemd.conf /etc/systemd/ \
    /etc/basic.targetconf \
 "

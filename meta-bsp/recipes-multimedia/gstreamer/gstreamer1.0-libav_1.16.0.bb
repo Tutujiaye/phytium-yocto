@@ -49,17 +49,17 @@ LIBAV_EXTRA_CONFIGURE_COMMON_ARG = "--target-os=linux \
   --cross-prefix='${HOST_PREFIX}'"
 
 # Disable assembly optimizations for X32, as this libav lacks the support
-PACKAGECONFIG_remove_linux-gnux32 = "yasm"
-LIBAV_EXTRA_CONFIGURE_COMMON_ARG_append_linux-gnux32 = " --disable-asm"
+PACKAGECONFIG:remove:linux-gnux32 = "yasm"
+LIBAV_EXTRA_CONFIGURE_COMMON_ARG:append_linux-gnux32 = " --disable-asm"
 
 LIBAV_EXTRA_CONFIGURE_COMMON = \
 '${LIBAV_EXTRA_CONFIGURE}="${LIBAV_EXTRA_CONFIGURE_COMMON_ARG}"'
 
 EXTRA_OECONF = "${LIBAV_EXTRA_CONFIGURE_COMMON}"
 
-FILES_${PN} += "${libdir}/gstreamer-1.0/*.so"
-FILES_${PN}-dev += "${libdir}/gstreamer-1.0/*.la"
-FILES_${PN}-staticdev += "${libdir}/gstreamer-1.0/*.a"
+FILES:${PN} += "${libdir}/gstreamer-1.0/*.so"
+FILES:${PN}-dev += "${libdir}/gstreamer-1.0/*.la"
+FILES:${PN}-staticdev += "${libdir}/gstreamer-1.0/*.a"
 
 # http://errors.yoctoproject.org/Errors/Details/20493/
 ARM_INSTRUCTION_SET_armv4 = "arm"
