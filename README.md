@@ -69,7 +69,7 @@ https://docs.yoctoproject.org/4.0.9/ref-manual/index.html
 
      => setenv bootargs console=ttyAMA1,115200  audit=0 earlycon=pl011,0x2800d000 root=/dev/sda2 rw
      
-     => ext4load scsi 0:2 0x90100000 Image; ext4load scsi 0:2 0x90000000 <target>.dtb
+     => ext4load scsi 0:2 0x90100000 Image; ext4load scsi 0:2 0x90000000 e2000q-demo-board.dtb
 
      => booti 0x90100000 - 0x90000000
 
@@ -91,7 +91,7 @@ https://docs.yoctoproject.org/4.0.9/ref-manual/index.html
   
   - 32-bit libraries to be added into the image
   
-    IMAGE_INSTALL_append = " lib32-glibc lib32-libgcc lib32-libstdc++"
+    IMAGE_INSTALL:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
 
 
 # FAQ
