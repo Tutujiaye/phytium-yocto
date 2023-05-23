@@ -9,7 +9,7 @@
   <remote fetch="https://gitlab.com/yoctoproject/" name="gitlab"/>
   
   <default sync-j="2"/>
-  <project name="phytium-linux-yocto" path="sources/meta-phytium" remote="gitee" revision="master">
+  <project name="phytium-linux-yocto" path="sources/meta-phytium" remote="gitee" revision="refs/tags/phytium_linux_yocto_4.0_2023-v1.0-RC1">
     <copyfile dest="setup-env" src="tools/setup-env"/>
   </project>
   <project name="meta-virtualization" path="sources/meta-virtualization" remote="yocto" revision="79c584eaaa5e1443a6449cdfddd1913ee6b162a3"/>
