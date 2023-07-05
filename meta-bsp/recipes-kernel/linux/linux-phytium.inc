@@ -6,6 +6,7 @@ SECTION = "kernel"
 LICENSE = "GPL-2.0-only"
 
 SRC_URI = "git://gitee.com/phytium_embedded/phytium-linux-kernel.git;protocol=https;branch=${KERNEL_BRANCH} "
+#SRC_URI = "git://git@gitee.com:22/phytium_embedded/phytium-linux-kernel.git;protocol=ssh;branch=${KERNEL_BRANCH} "
 
 SRC_URI += " \
             file://iso.config \

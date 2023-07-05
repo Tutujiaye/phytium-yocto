@@ -36,8 +36,6 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 IMAGE_FSTYPES = "tar.gz  ext4"
 
-IMAGE_INSTALL_VPU =" vpu-firmware vpu-lib vpu-lib-dev"
-
 IMAGE_INSTALL += "packagegroup-phy-virtualization \
     packagegroup-core-tools-testapps \
     glmark2 \
@@ -55,5 +53,4 @@ IMAGE_INSTALL += "packagegroup-phy-virtualization \
     libomxil htop lsscsi lshw alsa-tools bison flex \
     cpufrequtils sysbench libkcapi libgpiod libgpiod-tools linuxptp vim git ntpdate ffmpeg \
     packagegroup-gui-base \
-    ${IMAGE_INSTALL_VPU} \
 "

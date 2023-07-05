@@ -8,7 +8,6 @@ PACKAGE_INSTALL = " \
     systemd-initramfs \
     ${@bb.utils.contains('DISTRO_FEATURES', 'anaconda-support', 'lvm2 lvm2-udevrules', '', d)} \
     phytium-init \
-    vpu-firmware \
     wireless-regdb-static \
     kernel-modules \
 "

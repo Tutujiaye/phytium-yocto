@@ -27,13 +27,10 @@ inherit core-image
 IMAGE_ROOTFS_SIZE = "8192"
 IMAGE_ROOTFS_EXTRA_SPACE = "0"
 
-PACKAGE_INSTALL += " kernel-modules vpu-firmware \
+PACKAGE_INSTALL += " kernel-modules  \
                      lvm2 lvm2-udevrules initramfs-module-lvm  \ 
-                     ${@bb.utils.contains('MACHINE_FEATURES', 'gpu', '${PACKAGE_INSTALL_GPU}', '', d)} \
 "
 PACKAGE_EXCLUDE = "kernel-image-*"
-
-PACKAGE_INSTALL_GPU = " "
 
 INITRAMFS_MAXSIZE ??= "423270"
 
