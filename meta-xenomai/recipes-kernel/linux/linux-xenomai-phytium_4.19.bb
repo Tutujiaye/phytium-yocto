@@ -5,4 +5,4 @@ SRC_URI:append = " file://0001-perf-bench-Share-some-global-variables-to-fix-bui
                    file://0001-perf-tests-bp_account-Make-global-variable-static.patch \
                    file://0001-libtraceevent-Fix-build-with-binutils-2.35.patch \
 "
-SRCREV = "3e75abb063b8a8a3ff51da5da7acda8a8ed7da6f"
+SRCREV = "94d20013f323c68ee898ef2c0d1f64fd617a0f64"
